@@ -586,7 +586,7 @@
   // ================================================================
   // ضع هنا رابط Google Apps Script بعد النشر (Deploy)
   // ================================================================
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgXzXUUuCV8Y7jrtX8QcUdmOVRxn2cUNl_3ekxGnFWdRTlFhwF-N36apGfSSb2YWYRsg/exec]";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgXzXUUuCV8Y7jrtX8QcUdmOVRxn2cUNl_3ekxGnFWdRTlFhwF-N36apGfSSb2YWYRsg/exec";
   // ================================================================
 
   let gender = "", edu = "", ijaza = "";
@@ -791,15 +791,31 @@
     };
 
     try {
-      await fetch(APPS_SCRIPT_URL, {
+      const res = await fetch(APPS_SCRIPT_URL, {
         method:  'POST',
-        mode:    'no-cors', // ضروري: Apps Script لا يدعم قراءة الرد عبر CORS من نطاق Vercel، لكنه يكتب البيانات بثقة
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body:    JSON.stringify(payload)
       });
+      const result = await res.json();
 
-      // الرقم عُرض هنا هو نفسه المُرسَل للسيرفر ليكتبه حرفياً — تطابق تام مع Sheets
-      document.getElementById('admin-code-display').textContent = payload.adminCode;
+      if (result.status === 'duplicate') {
+        showErr('err-dup', true);
+        document.getElementById('f-phone').classList.add('error');
+        btn.disabled = false;
+        document.getElementById('btn-text').style.display = 'block';
+        document.getElementById('btn-spin').style.display = 'none';
+        return;
+      }
+
+      if (result.status === 'full') {
+        alert('اكتمل عدد المسجلين');
+        btn.disabled = false;
+        document.getElementById('btn-text').style.display = 'block';
+        document.getElementById('btn-spin').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('admin-code-display').textContent = result.code;
       document.getElementById('form-section').style.display  = 'none';
       document.getElementById('success-section').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
