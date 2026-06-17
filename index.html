@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>التسجيل في المجلس الحديثي الكبير — صحيح البخاري</title>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdeNiUtAAAAAPJpJBXCPo2be3XgyRGhyMWMAUw1"></script>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -585,7 +586,7 @@
   // ================================================================
   // ضع هنا رابط Google Apps Script بعد النشر (Deploy)
   // ================================================================
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgXzXUUuCV8Y7jrtX8QcUdmOVRxn2cUNl_3ekxGnFWdRTlFhwF-N36apGfSSb2YWYRsg/exec";
+  const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
   // ================================================================
 
   let gender = "", edu = "", ijaza = "";
@@ -774,6 +775,9 @@
     const uniqueSeq = String(Date.now()).slice(-6); // فريد عملياً، لا يعتمد على عدد الصفوف
     const adminCode = uniqueSeq + '-' + last4;
 
+    // الحصول على توكن reCAPTCHA
+    const captchaToken = await grecaptcha.execute('6LdeNiUtAAAAAPJpJBXCPo2be3XgyRGhyMWMAUw1', {action: 'register'});
+
     const payload = {
       action:     'register',
       name:       name,
@@ -782,6 +786,7 @@
       education:  edu,
       hasIjaza:   ijaza,
       adminCode:  adminCode,
+      captchaToken: captchaToken,
       timestamp:  new Date().toISOString()
     };
 
