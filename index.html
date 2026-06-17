@@ -772,11 +772,12 @@
     }
 
     const last4 = phone.replace(/\D/g, '').slice(-4);
-    const uniqueSeq = String(Date.now()).slice(-6); // فريد عملياً، لا يعتمد على عدد الصفوف
-    const adminCode = uniqueSeq + '-' + last4;
+    const uniqueSeq = String(Date.now()).slice(-6);
+    let adminCode = uniqueSeq + '-' + last4;
 
     // الحصول على توكن reCAPTCHA
-    const captchaToken = await grecaptcha.execute('6LdeNiUtAAAAAPJpJBXCPo2be3XgyRGhyMWMAUw1', {action: 'register'});
+    let captchaToken = '';
+    try { captchaToken = await grecaptcha.execute('6LdeNiUtAAAAAPJpJBXCPo2be3XgyRGhyMWMAUw1', {action: 'register'}); } catch(e) {}
 
     const payload = {
       action:     'register',
@@ -791,31 +792,21 @@
     };
 
     try {
-      const res = await fetch(APPS_SCRIPT_URL, {
+      await fetch(APPS_SCRIPT_URL, {
         method:  'POST',
+        mode:    'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body:    JSON.stringify(payload)
       });
-      const result = await res.json();
 
-      if (result.status === 'duplicate') {
-        showErr('err-dup', true);
-        document.getElementById('f-phone').classList.add('error');
-        btn.disabled = false;
-        document.getElementById('btn-text').style.display = 'block';
-        document.getElementById('btn-spin').style.display = 'none';
-        return;
-      }
+      // انتظر ثانيتين ثم تحقق من نجاح التسجيل عبر JSONP
+      await new Promise(r => setTimeout(r, 2000));
+      try {
+        const check = await jsonpRequest({ action: 'lookup', phone: phone, firstName: name.split(/\s+/)[0] });
+        if (check.found) adminCode = check.code;
+      } catch(e) {}
 
-      if (result.status === 'full') {
-        alert('اكتمل عدد المسجلين');
-        btn.disabled = false;
-        document.getElementById('btn-text').style.display = 'block';
-        document.getElementById('btn-spin').style.display = 'none';
-        return;
-      }
-
-      document.getElementById('admin-code-display').textContent = result.code;
+      document.getElementById('admin-code-display').textContent = adminCode;
       document.getElementById('form-section').style.display  = 'none';
       document.getElementById('success-section').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
