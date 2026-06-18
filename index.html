@@ -266,15 +266,18 @@
     document.getElementById('lookup-btn-text').style.display = 'none';
     document.getElementById('lookup-spin').style.display = 'block';
     try {
-      const res = await jsonpRequest({ action: 'lookup', phone: phone, firstName: firstName });
+      const res = await fetch('/api/lookup?' + new URLSearchParams({ phone, firstName }));
+      const data = await res.json();
+      // نعيد تسمية المتغير لتوافق باقي الكود
+      const resObj = data;
       btn.disabled = false;
       document.getElementById('lookup-btn-text').style.display = 'block';
       document.getElementById('lookup-spin').style.display = 'none';
-      if (res.found) {
+      if (resObj.found) {
         resultBox.innerHTML =
           '<span class="found">تم العثور على تسجيلك، رقمك الإداري هو:</span>' +
           '<div class="lookup-code-row">' +
-            '<div class="lookup-code-badge" id="lookup-code-val">' + res.code + '</div>' +
+            '<div class="lookup-code-badge" id="lookup-code-val">' + resObj.code + '</div>' +
             '<button class="lookup-copy-btn" onclick="copyLookupCode()" title="نسخ الرقم">📋</button>' +
           '</div>' +
           '<span id="lookup-copy-fb" style="color:#1a8f4a;font-weight:700;font-size:12px;opacity:0;transition:opacity .2s;">تم نسخ الرقم ✓</span>';
@@ -348,7 +351,8 @@
 
     const firstNameForCheck = name.split(/\s+/)[0];
     try {
-      const dupCheck = await jsonpRequest({ action: 'lookup', phone: phone, firstName: firstNameForCheck });
+      const dupRes = await fetch('/api/lookup?' + new URLSearchParams({ phone, firstName: firstNameForCheck }));
+      const dupCheck = await dupRes.json();
       if (dupCheck.found) {
         alert('تم التسجيل مسبقًا بهذا الرقم، ورقم الإداري هو: ' + dupCheck.code);
         btn.disabled = false;
