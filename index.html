@@ -8,434 +8,78 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Tajawal', sans-serif;
-      background: #f0ebe3;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-      direction: rtl;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 18px;
-      border: 0.5px solid #ddd5c8;
-      max-width: 640px;
-      margin: 0 auto;
-      overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-    }
-
-    /* ===== HEADER ===== */
-    .header {
-      background: #1a3a2a;
-      padding: 2rem 1.75rem 1.75rem;
-      text-align: center;
-    }
-    .header-org {
-      font-size: 11px;
-      color: #7dbf99;
-      letter-spacing: 0.3px;
-      margin-bottom: 0.25rem;
-    }
-    .header-dar {
-      font-size: 13px;
-      color: #a8d8bc;
-      margin-bottom: 1.25rem;
-      line-height: 1.6;
-    }
-    .header-invite {
-      font-size: 14px;
-      color: #e8f5ee;
-      margin-bottom: 0.3rem;
-    }
-    .header-title {
-      font-size: 21px;
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1.5;
-      margin-bottom: 1.1rem;
-    }
-    .header-sheikhs-label {
-      font-size: 12px;
-      color: #9fcfb2;
-      margin-bottom: 0.4rem;
-    }
-    .header-place-label {
-      font-size: 12px;
-      color: #9fcfb2;
-      margin-top: 1rem;
-      margin-bottom: 0.2rem;
-    }
-    .header-sub {
-      font-size: 14px;
-      color: #a8d8bc;
-      margin-top: 0;
-      margin-bottom: 0.3rem;
-    }
-    .header-note {
-      font-size: 12px;
-      color: #9fcfb2;
-      margin-bottom: 0;
-    }
-    .header-dates {
-      background: rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 0.7rem 1rem;
-      font-size: 12.5px;
-      color: #c8e8d8;
-      line-height: 1.8;
-      margin-bottom: 0.5rem;
-    }
-    .header-sheikhs {
-      margin-bottom: 1rem;
-      font-size: 12.5px;
-      color: #cdeede;
-      line-height: 1.9;
-      font-weight: 500;
-    }
-
-    /* ===== NOTICE ===== */
-    .notice {
-      background: #fffbf0;
-      border-right: 3px solid #c8960a;
-      margin: 1.5rem 1.5rem 0;
-      border-radius: 8px;
-      padding: 1rem 1rem 1rem 0.75rem;
-    }
-    .notice-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #7a5c00;
-      margin-bottom: 0.6rem;
-    }
-    .notice ul {
-      padding-right: 1.4rem;
-    }
-    .notice li {
-      font-size: 12.5px;
-      color: #5c4400;
-      line-height: 1.9;
-    }
-
-    /* ===== FORM ===== */
-    .form-body {
-      padding: 1.5rem;
-    }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #888;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 0.5px solid #e8e0d8;
-    }
-
-    .field {
-      margin-bottom: 1.25rem;
-    }
-    .field label {
-      display: block;
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #2c2c2a;
-      margin-bottom: 0.45rem;
-    }
-    .field label .req {
-      color: #b52a2a;
-      margin-right: 2px;
-    }
-    .field input {
-      width: 100%;
-      height: 46px;
-      border: 0.5px solid #ccc;
-      border-radius: 9px;
-      padding: 0 14px;
-      font-size: 14.5px;
-      font-family: 'Tajawal', sans-serif;
-      color: #2c2c2a;
-      background: #fafaf8;
-      direction: rtl;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-    .field input:focus {
-      outline: none;
-      border-color: #1a3a2a;
-      box-shadow: 0 0 0 3px rgba(26,58,42,0.1);
-      background: #fff;
-    }
-    .field input.error {
-      border-color: #b52a2a;
-    }
-    .field .hint {
-      font-size: 11.5px;
-      color: #999;
-      margin-top: 5px;
-    }
-    .field .err-msg {
-      font-size: 12px;
-      color: #b52a2a;
-      margin-top: 5px;
-      display: none;
-    }
-    .field .err-msg.show {
-      display: block;
-    }
-
-    /* ===== RADIO BUTTONS ===== */
-    .radio-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .radio-group.col {
-      flex-direction: column;
-      gap: 6px;
-    }
-    .radio-btn {
-      flex: 1;
-      min-width: 100px;
-      border: 0.5px solid #ccc;
-      border-radius: 9px;
-      padding: 10px 14px;
-      font-size: 13.5px;
-      font-family: 'Tajawal', sans-serif;
-      cursor: pointer;
-      text-align: center;
-      background: #fafaf8;
-      color: #555;
-      transition: all 0.15s;
-      user-select: none;
-    }
-    .radio-group.col .radio-btn {
-      text-align: right;
-    }
-    .radio-btn:hover {
-      border-color: #1a3a2a;
-      background: #f0f7f3;
-    }
-    .radio-btn.selected {
-      border-color: #1a3a2a;
-      background: #f0f7f3;
-      color: #1a3a2a;
-      font-weight: 700;
-    }
-    .radio-btn.error-border {
-      border-color: #b52a2a;
-    }
-
-    .divider {
-      height: 0.5px;
-      background: #e8e0d8;
-      margin: 1.5rem 0;
-    }
-
-    /* ===== SUBMIT ===== */
-    .submit-btn {
-      width: 100%;
-      height: 52px;
-      background: #1a3a2a;
-      color: #fff;
-      border: none;
-      border-radius: 11px;
-      font-size: 16px;
-      font-weight: 700;
-      font-family: 'Tajawal', sans-serif;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+    body { font-family: 'Tajawal', sans-serif; background: #f0ebe3; min-height: 100vh; padding: 2rem 1rem; direction: rtl; }
+    .card { background: #ffffff; border-radius: 18px; border: 0.5px solid #ddd5c8; max-width: 640px; margin: 0 auto; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+    .header { background: #1a3a2a; padding: 2rem 1.75rem 1.75rem; text-align: center; }
+    .header-org { font-size: 11px; color: #7dbf99; letter-spacing: 0.3px; margin-bottom: 0.25rem; }
+    .header-dar { font-size: 13px; color: #a8d8bc; margin-bottom: 1.25rem; line-height: 1.6; }
+    .header-invite { font-size: 14px; color: #e8f5ee; margin-bottom: 0.3rem; }
+    .header-title { font-size: 21px; font-weight: 800; color: #ffffff; line-height: 1.5; margin-bottom: 1.1rem; }
+    .header-sheikhs-label { font-size: 12px; color: #9fcfb2; margin-bottom: 0.4rem; }
+    .header-place-label { font-size: 12px; color: #9fcfb2; margin-top: 1rem; margin-bottom: 0.2rem; }
+    .header-sub { font-size: 14px; color: #a8d8bc; margin-top: 0; margin-bottom: 0.3rem; }
+    .header-note { font-size: 12px; color: #9fcfb2; margin-bottom: 0; }
+    .header-dates { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 0.7rem 1rem; font-size: 12.5px; color: #c8e8d8; line-height: 1.8; margin-bottom: 0.5rem; }
+    .header-sheikhs { margin-bottom: 1rem; font-size: 12.5px; color: #cdeede; line-height: 1.9; font-weight: 500; }
+    .notice { background: #fffbf0; border-right: 3px solid #c8960a; margin: 1.5rem 1.5rem 0; border-radius: 8px; padding: 1rem 1rem 1rem 0.75rem; }
+    .notice-title { font-size: 13px; font-weight: 700; color: #7a5c00; margin-bottom: 0.6rem; }
+    .notice ul { padding-right: 1.4rem; }
+    .notice li { font-size: 12.5px; color: #5c4400; line-height: 1.9; }
+    .form-body { padding: 1.5rem; }
+    .section-label { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 0.5px solid #e8e0d8; }
+    .field { margin-bottom: 1.25rem; }
+    .field label { display: block; font-size: 13.5px; font-weight: 700; color: #2c2c2a; margin-bottom: 0.45rem; }
+    .field label .req { color: #b52a2a; margin-right: 2px; }
+    .field input { width: 100%; height: 46px; border: 0.5px solid #ccc; border-radius: 9px; padding: 0 14px; font-size: 14.5px; font-family: 'Tajawal', sans-serif; color: #2c2c2a; background: #fafaf8; direction: rtl; transition: border-color 0.15s, box-shadow 0.15s; }
+    .field input:focus { outline: none; border-color: #1a3a2a; box-shadow: 0 0 0 3px rgba(26,58,42,0.1); background: #fff; }
+    .field input.error { border-color: #b52a2a; }
+    .field .hint { font-size: 11.5px; color: #999; margin-top: 5px; }
+    .field .err-msg { font-size: 12px; color: #b52a2a; margin-top: 5px; display: none; }
+    .field .err-msg.show { display: block; }
+    .radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .radio-group.col { flex-direction: column; gap: 6px; }
+    .radio-btn { flex: 1; min-width: 100px; border: 0.5px solid #ccc; border-radius: 9px; padding: 10px 14px; font-size: 13.5px; font-family: 'Tajawal', sans-serif; cursor: pointer; text-align: center; background: #fafaf8; color: #555; transition: all 0.15s; user-select: none; }
+    .radio-group.col .radio-btn { text-align: right; }
+    .radio-btn:hover { border-color: #1a3a2a; background: #f0f7f3; }
+    .radio-btn.selected { border-color: #1a3a2a; background: #f0f7f3; color: #1a3a2a; font-weight: 700; }
+    .radio-btn.error-border { border-color: #b52a2a; }
+    .divider { height: 0.5px; background: #e8e0d8; margin: 1.5rem 0; }
+    .submit-btn { width: 100%; height: 52px; background: #1a3a2a; color: #fff; border: none; border-radius: 11px; font-size: 16px; font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; transition: background 0.15s, transform 0.1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .submit-btn:hover:not(:disabled) { background: #0f2419; }
     .submit-btn:active:not(:disabled) { transform: scale(0.99); }
     .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
-
-    .spinner {
-      width: 20px; height: 20px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
-    }
+    .spinner { width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ===== SUCCESS ===== */
-    .success-box {
-      display: none;
-      text-align: center;
-      padding: 2.5rem 1.75rem 2rem;
-    }
+    .success-box { display: none; text-align: center; padding: 2.5rem 1.75rem 2rem; }
     .success-icon { font-size: 52px; margin-bottom: 1rem; }
-    .success-title {
-      font-size: 22px;
-      font-weight: 800;
-      color: #1a3a2a;
-      margin-bottom: 0.75rem;
-    }
-    .success-msg {
-      font-size: 13.5px;
-      color: #555;
-      line-height: 1.9;
-    }
-    .code-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 1rem 0 0.4rem;
-    }
-    .admin-badge {
-      display: inline-block;
-      background: #1a3a2a;
-      color: #fff;
-      border-radius: 8px;
-      padding: 6px 20px;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      direction: ltr;
-    }
-    .copy-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      border: 0.5px solid #ccc;
-      background: #fafaf8;
-      cursor: pointer;
-      font-size: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s, border-color 0.15s;
-    }
+    .success-title { font-size: 22px; font-weight: 800; color: #1a3a2a; margin-bottom: 0.75rem; }
+    .success-msg { font-size: 13.5px; color: #555; line-height: 1.9; }
+    .code-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 1rem 0 0.4rem; }
+    .admin-badge { display: inline-block; background: #1a3a2a; color: #fff; border-radius: 8px; padding: 6px 20px; font-size: 20px; font-weight: 700; letter-spacing: 3px; direction: ltr; }
+    .copy-btn { width: 40px; height: 40px; border-radius: 8px; border: 0.5px solid #ccc; background: #fafaf8; cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; transition: background 0.15s, border-color 0.15s; }
     .copy-btn:hover { background: #f0f7f3; border-color: #1a3a2a; }
-    .copy-btn:active { transform: scale(0.95); }
-    .copy-feedback {
-      font-size: 12px;
-      color: #1a8f4a;
-      font-weight: 700;
-      height: 16px;
-      margin-bottom: 0.6rem;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
+    .copy-feedback { font-size: 12px; color: #1a8f4a; font-weight: 700; height: 16px; margin-bottom: 0.6rem; opacity: 0; transition: opacity 0.2s; }
     .copy-feedback.show { opacity: 1; }
-    .whatsapp-btn {
-      display: inline-block;
-      margin-top: 1.25rem;
-      background: #25d366;
-      color: #fff;
-      border-radius: 10px;
-      padding: 12px 24px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: 'Tajawal', sans-serif;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    /* ===== FOOTER ===== */
-    .lookup-toggle {
-      text-align: center;
-      font-size: 12.5px;
-      color: #1a3a2a;
-      font-weight: 700;
-      text-decoration: underline;
-      cursor: pointer;
-      padding: 0.4rem 0;
-      margin-bottom: 0.5rem;
-    }
+    .whatsapp-btn { display: inline-block; margin-top: 1.25rem; background: #25d366; color: #fff; border-radius: 10px; padding: 12px 24px; font-size: 15px; font-weight: 700; font-family: 'Tajawal', sans-serif; text-decoration: none; cursor: pointer; }
+    .lookup-toggle { text-align: center; font-size: 12.5px; color: #1a3a2a; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 0.4rem 0; margin-bottom: 0.5rem; }
     .lookup-toggle:hover { color: #0f2419; }
-    .lookup-box {
-      display: none;
-      background: #f7f9f7;
-      border: 0.5px solid #dde5dd;
-      border-radius: 10px;
-      padding: 1.25rem;
-      margin-top: 0.5rem;
-    }
+    .lookup-box { display: none; background: #f7f9f7; border: 0.5px solid #dde5dd; border-radius: 10px; padding: 1.25rem; margin-top: 0.5rem; }
     .lookup-box.show { display: block; }
-    .lookup-btn {
-      width: 100%;
-      height: 44px;
-      background: #fff;
-      color: #1a3a2a;
-      border: 1px solid #1a3a2a;
-      border-radius: 9px;
-      font-size: 14px;
-      font-weight: 700;
-      font-family: 'Tajawal', sans-serif;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background 0.15s;
-    }
+    .lookup-btn { width: 100%; height: 44px; background: #fff; color: #1a3a2a; border: 1px solid #1a3a2a; border-radius: 9px; font-size: 14px; font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s; }
     .lookup-btn:hover:not(:disabled) { background: #f0f7f3; }
     .lookup-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .lookup-result {
-      margin-top: 0.9rem;
-      font-size: 13px;
-      line-height: 1.8;
-      text-align: center;
-    }
-    .lookup-result .found {
-      color: #1a3a2a;
-    }
-    .lookup-result .not-found {
-      color: #b52a2a;
-    }
-    .lookup-code-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin: 0.5rem 0;
-    }
-    .lookup-code-badge {
-      background: #1a3a2a;
-      color: #fff;
-      border-radius: 7px;
-      padding: 5px 16px;
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      direction: ltr;
-    }
-    .lookup-copy-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 7px;
-      border: 0.5px solid #ccc;
-      background: #fff;
-      cursor: pointer;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .lookup-result { margin-top: 0.9rem; font-size: 13px; line-height: 1.8; text-align: center; }
+    .lookup-result .found { color: #1a3a2a; }
+    .lookup-result .not-found { color: #b52a2a; }
+    .lookup-code-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0.5rem 0; }
+    .lookup-code-badge { background: #1a3a2a; color: #fff; border-radius: 7px; padding: 5px 16px; font-size: 17px; font-weight: 700; letter-spacing: 2px; direction: ltr; }
+    .lookup-copy-btn { width: 34px; height: 34px; border-radius: 7px; border: 0.5px solid #ccc; background: #fff; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; }
     .lookup-copy-btn:hover { background: #f0f7f3; border-color: #1a3a2a; }
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      color: #aaa;
-      padding: 1rem;
-      border-top: 0.5px solid #e8e0d8;
-    }
+    .footer { text-align: center; font-size: 11px; color: #aaa; padding: 1rem; border-top: 0.5px solid #e8e0d8; }
   </style>
 </head>
 <body>
 <div class="card">
-
-  <!-- HEADER -->
   <div class="header">
     <div class="header-org">برعاية مديرية الأوقاف ودار الإفتاء بحلب</div>
     <div class="header-dar">دارُ العلامة الشيخ عبدالفتاح أبو غدة رحمه الله<br>للحديث النبوي وعلومه</div>
@@ -456,14 +100,12 @@
     <div class="header-note">يوجد مكان مخصص للنساء</div>
   </div>
 
-
-  <!-- FORM SECTION -->
   <div id="form-section">
     <div class="notice">
       <div class="notice-title">⚠️ إرشادات مهمة للمسجلين</div>
       <ul>
         <li><strong>دقة الاسم:</strong> يرجى كتابة الاسم كاملاً ومطابقًا للهوية الشخصية (دون تشكيل)، إذ سيُعتمد رسميًّا في طباق السماع (سجل السماع).</li>
-        <li><strong>الرقم الإداري:</strong> بعد التسجيل، ستحصل على رقم إداري سري، لتوثيق حضورك اليومي داخل المسجد.</li>
+        <li><strong>الرقم الإداري:</strong> بعد التسجيل، ستحصل على رقم إداري سري، لتوثيق حضورك اليومي داخل المجلس.</li>
         <li><strong>إثبات الحضور:</strong> يتطلب الوجود الفعلي داخل جامع عبد الله بن عباس، مع تفعيل خاصية الموقع الجغرافي (GPS) عند إثبات الحضور في مجلس السماع.</li>
       </ul>
     </div>
@@ -549,7 +191,6 @@
     </div>
   </div>
 
-  <!-- SUCCESS SECTION -->
   <div class="success-box" id="success-section">
     <div class="success-icon">✅</div>
     <div class="success-title">تم تسجيلك بنجاح!</div>
@@ -579,53 +220,31 @@
   <div class="footer">
     المجلس الحديثي الكبير — حلب 1448هـ | جامع عبدالله بن عباس
   </div>
-
 </div>
 
 <script>
-  // ================================================================
-  // ضع هنا رابط Google Apps Script بعد النشر (Deploy)
-  // ================================================================
-  const API_URL          = "https://script.google.com/macros/s/AKfycbzgXzXUUuCV8Y7jrtX8QcUdmOVRxn2cUNl_3ekxGnFWdRTlFhwF-N36apGfSSb2YWYRsg/exec"; // للتسجيل عبر Vercel
-  const APPS_SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbzgXzXUUuCV8Y7jrtX8QcUdmOVRxn2cUNl_3ekxGnFWdRTlFhwF-N36apGfSSb2YWYRsg/exec"; // للبحث عبر JSONP مباشرة
-  // ================================================================
+  const API_URL         = "https://script.google.com/macros/s/AKfycbzgXzXUUuCV8Y7jrtX8QcUdmOVRxn2cUNl_3ekxGnFWdRTlFhwF-N36apGfSSb2YWYRsg/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgXzXUUuCV8Y7jrtX8QcUdmOVRxn2cUNl_3ekxGnFWdRTlFhwF-N36apGfSSb2YWYRsg/exec";
 
   let gender = "", edu = "", ijaza = "";
 
-  // إصلاح ترتيب علامة + في placeholder عبر حرف LRM حقيقي (يتجاوز انعكاس RTL البصري)
   document.getElementById('f-phone').placeholder = '09xxxxxxxx  أو  \u200E+966xxxxxxxxx';
 
-  // ===== دالة JSONP عامة للبحث في Sheets (تتجاوز قيد CORS تماماً) =====
-  function jsonpRequest(params, retriesLeft = 2) {
+  function jsonpRequest(params) {
     return new Promise((resolve, reject) => {
-      function attempt(remaining) {
-        const cbName = 'jsonp_cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
-        let script;
-        const timeout = setTimeout(() => {
-          cleanup();
-          if (remaining > 0) attempt(remaining - 1);
-          else reject(new Error('timeout'));
-        }, 20000); // 20 ثانية — وقت كافٍ لبطء شبكات الجوال وبدء تشغيل Apps Script
-
-        function cleanup() {
-          clearTimeout(timeout);
-          delete window[cbName];
-          if (script && script.parentNode) script.parentNode.removeChild(script);
-        }
-
-        window[cbName] = (data) => { cleanup(); resolve(data); };
-
-        const qs = new URLSearchParams({ ...params, callback: cbName, _: Date.now() }).toString();
-        script = document.createElement('script');
-        script.src = APPS_SCRIPT_URL + '?' + qs;
-        script.onerror = () => {
-          cleanup();
-          if (remaining > 0) attempt(remaining - 1);
-          else reject(new Error('network'));
-        };
-        document.body.appendChild(script);
+      const cbName = 'jsonp_cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+      const timeout = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 20000);
+      function cleanup() {
+        clearTimeout(timeout);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
       }
-      attempt(retriesLeft);
+      window[cbName] = (data) => { cleanup(); resolve(data); };
+      const qs = new URLSearchParams({ ...params, callback: cbName }).toString();
+      const script = document.createElement('script');
+      script.src = APPS_SCRIPT_URL + '?' + qs;
+      script.onerror = () => { cleanup(); reject(new Error('network')); };
+      document.body.appendChild(script);
     });
   }
 
@@ -638,23 +257,19 @@
     const firstName = document.getElementById('lk-name').value.trim();
     const resultBox = document.getElementById('lookup-result');
     resultBox.innerHTML = '';
-
     if (!phone || !firstName) {
       resultBox.innerHTML = '<span class="not-found">يرجى إدخال رقم الجوال والاسم الأول</span>';
       return;
     }
-
     const btn = document.getElementById('lookup-btn');
     btn.disabled = true;
     document.getElementById('lookup-btn-text').style.display = 'none';
     document.getElementById('lookup-spin').style.display = 'block';
-
     try {
       const res = await jsonpRequest({ action: 'lookup', phone: phone, firstName: firstName });
       btn.disabled = false;
       document.getElementById('lookup-btn-text').style.display = 'block';
       document.getElementById('lookup-spin').style.display = 'none';
-
       if (res.found) {
         resultBox.innerHTML =
           '<span class="found">تم العثور على تسجيلك، رقمك الإداري هو:</span>' +
@@ -679,57 +294,34 @@
     const fb = document.getElementById('lookup-copy-fb');
     const doFeedback = () => { fb.style.opacity = '1'; setTimeout(() => fb.style.opacity = '0', 1800); };
     navigator.clipboard.writeText(code).then(doFeedback).catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = code;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      doFeedback();
+      const ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); doFeedback();
     });
   }
 
   function copyAdminCode() {
     const code = document.getElementById('admin-code-display').textContent;
     navigator.clipboard.writeText(code).then(() => {
-      const fb = document.getElementById('copy-feedback');
-      fb.classList.add('show');
-      setTimeout(() => fb.classList.remove('show'), 1800);
+      const fb = document.getElementById('copy-feedback'); fb.classList.add('show'); setTimeout(() => fb.classList.remove('show'), 1800);
     }).catch(() => {
-      // طريقة احتياطية للمتصفحات القديمة
-      const ta = document.createElement('textarea');
-      ta.value = code;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      const fb = document.getElementById('copy-feedback');
-      fb.classList.add('show');
-      setTimeout(() => fb.classList.remove('show'), 1800);
+      const ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      const fb = document.getElementById('copy-feedback'); fb.classList.add('show'); setTimeout(() => fb.classList.remove('show'), 1800);
     });
   }
 
   function setupRadio(groupId, setter) {
     document.querySelectorAll('#' + groupId + ' .radio-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('#' + groupId + ' .radio-btn').forEach(b => {
-          b.classList.remove('selected');
-          b.classList.remove('error-border');
-        });
+        document.querySelectorAll('#' + groupId + ' .radio-btn').forEach(b => { b.classList.remove('selected'); b.classList.remove('error-border'); });
         btn.classList.add('selected');
         setter(btn.dataset.val);
       });
     });
   }
-
   setupRadio('rg-gender', v => { gender = v; });
   setupRadio('rg-edu',    v => { edu = v; });
   setupRadio('rg-ijaza',  v => { ijaza = v; });
 
-  function showErr(id, show) {
-    const el = document.getElementById(id);
-    if (el) el.classList.toggle('show', show);
-  }
+  function showErr(id, show) { const el = document.getElementById(id); if (el) el.classList.toggle('show', show); }
 
   function hideAllErrors() {
     ['err-name','err-phone','err-dup','err-gender','err-edu','err-ijaza'].forEach(id => showErr(id, false));
@@ -740,33 +332,20 @@
   async function handleSubmit() {
     hideAllErrors();
     let valid = true;
-
     const name  = document.getElementById('f-name').value.trim();
     const phone = document.getElementById('f-phone').value.trim();
-
-    if (!name || name.length < 5) {
-      showErr('err-name', true);
-      document.getElementById('f-name').classList.add('error');
-      valid = false;
-    }
-    if (!phone || phone.replace(/\D/g,'').length < 8) {
-      showErr('err-phone', true);
-      document.getElementById('f-phone').classList.add('error');
-      valid = false;
-    }
+    if (!name || name.length < 5) { showErr('err-name', true); document.getElementById('f-name').classList.add('error'); valid = false; }
+    if (!phone || phone.replace(/\D/g,'').length < 8) { showErr('err-phone', true); document.getElementById('f-phone').classList.add('error'); valid = false; }
     if (!gender) { showErr('err-gender', true); valid = false; }
     if (!edu)    { showErr('err-edu',    true); valid = false; }
     if (!ijaza)  { showErr('err-ijaza',  true); valid = false; }
-
     if (!valid) return;
 
-    // تفعيل حالة التحميل
     const btn = document.getElementById('btn-submit');
     btn.disabled = true;
     document.getElementById('btn-text').style.display = 'none';
     document.getElementById('btn-spin').style.display  = 'block';
 
-    // فحص التكرار: رقم الجوال + الاسم الأول معاً (حماية من معرفة رقم شخص آخر)
     const firstNameForCheck = name.split(/\s+/)[0];
     try {
       const dupCheck = await jsonpRequest({ action: 'lookup', phone: phone, firstName: firstNameForCheck });
@@ -777,14 +356,8 @@
         document.getElementById('btn-spin').style.display = 'none';
         return;
       }
-    } catch (e) {
-      // إن فشل فحص التكرار (مثلاً بطء شبكة)، نستمر بالتسجيل بثقة الفحص الموجود في السيرفر أصلاً
-    }
+    } catch (e) {}
 
-    const last4 = phone.replace(/\D/g, '').slice(-4);
-    const uniqueSeq = String(Date.now()).slice(-6);
-
-    // الحصول على توكن reCAPTCHA
     let captchaToken = '';
     try {
       captchaToken = await grecaptcha.execute('6LdeNiUtAAAAAPJpJBXCPo2be3XgyRGhyMWMAUw1', { action: 'register' });
@@ -812,31 +385,21 @@
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(payload)
       });
-
       const result = await response.json();
 
       if (result.status === 'duplicate') {
-        showErr('err-dup', true);
-        document.getElementById('f-phone').classList.add('error');
-        btn.disabled = false;
-        document.getElementById('btn-text').style.display = 'block';
-        document.getElementById('btn-spin').style.display = 'none';
+        showErr('err-dup', true); document.getElementById('f-phone').classList.add('error');
+        btn.disabled = false; document.getElementById('btn-text').style.display = 'block'; document.getElementById('btn-spin').style.display = 'none';
         return;
       }
-
       if (result.status === 'full') {
         alert('اكتمل عدد المسجلين');
-        btn.disabled = false;
-        document.getElementById('btn-text').style.display = 'block';
-        document.getElementById('btn-spin').style.display = 'none';
+        btn.disabled = false; document.getElementById('btn-text').style.display = 'block'; document.getElementById('btn-spin').style.display = 'none';
         return;
       }
-
       if (result.status !== 'ok') {
         alert('حدث خطأ في التسجيل. يرجى المحاولة مجدداً.');
-        btn.disabled = false;
-        document.getElementById('btn-text').style.display = 'block';
-        document.getElementById('btn-spin').style.display = 'none';
+        btn.disabled = false; document.getElementById('btn-text').style.display = 'block'; document.getElementById('btn-spin').style.display = 'none';
         return;
       }
 
