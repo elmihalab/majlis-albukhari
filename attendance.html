@@ -193,7 +193,7 @@
 
     <label for="adminCode">الرقم الإداري</label>
     <input type="text" id="adminCode" placeholder="مثال: 0001-1234" inputmode="text" autocomplete="off" maxlength="9">
-    <div class="field-note">لا حاجة لكتابة الشرطة (-) بنفسك، تُضاف تلقائيًا. يمكنك أيضاً لصق الرقم كاملاً (بالشرطة أو بدونها).</div>
+    <div class="field-note">لا حاجة لكتابة الشرطة (-) بنفسك، تُضاف تلقائيًا. يمكنك أيضًا لصق الرقم كاملاً (بالشرطة أو بدونها).</div>
 
     <button class="btn" id="submitBtn" onclick="submitAttendance()">تسجيل الحضور</button>
 
@@ -207,7 +207,7 @@
 
 <script>
 // تنسيق الرقم الإداري تلقائيًا بالشكل 0001-1234 أثناء الكتابة أو اللصق.
-// تُحذف أي شرطات موجودة مسبقاً في النص أولاً (سواء من كتابة المستخدم أو من
+// تُحذف أي شرطات موجودة مسبقًا في النص أولاً (سواء من كتابة المستخدم أو من
 // نسخ/لصق رقم يحوي شرطة بالفعل)، ثم تُعاد إضافة شرطة واحدة فقط في الموضع الصحيح
 // بعد أول 4 أرقام — هذا يمنع تكرار الشرطة أو وضعها في موضع خاطئ عند اللصق.
 function formatAdminCodeInput(inputEl) {
@@ -264,7 +264,7 @@ function submitAttendance() {
   }
 
   if (!navigator.geolocation) {
-    showStatus('err', 'متصفحك لا يدعم تحديد الموقع — جرّب متصفحاً آخر');
+    showStatus('err', 'متصفحك لا يدعم تحديد الموقع — جرّب متصفحًا آخر');
     return;
   }
 
@@ -293,7 +293,7 @@ function submitAttendance() {
       .then(r => r.json())
       .then(handleResponse)
       .catch(function () {
-        showStatus('err', 'تعذّر الاتصال بالسيرفر — تحقق من اتصالك بالإنترنت وحاول مجدداً');
+        showStatus('err', 'تعذّر الاتصال بالسيرفر — تحقق من اتصالك بالإنترنت وحاول مجددًا');
         setLoading(false);
       });
     },
@@ -321,10 +321,10 @@ function handleResponse(data) {
       showStatus('err', '⚠️ الرقم الإداري غير موجود — تأكد من كتابته بشكل صحيح');
       break;
     case 'window_closed':
-      showStatus('err', '🕓 التحضير مغلق حالياً' + (data.detail ? '<br><small>' + data.detail + '</small>' : ''));
+      showStatus('err', '🕓 التحضير مغلق حاليًا' + (data.detail ? '<br><small>' + data.detail + '</small>' : ''));
       break;
     case 'no_location':
-      showStatus('err', '📍 تعذّر تحديد موقعك — تأكد من تفعيل GPS وحاول مجدداً');
+      showStatus('err', '📍 تعذّر تحديد موقعك — تأكد من تفعيل GPS وحاول مجددًا');
       break;
     case 'out_of_range':
       showStatus('err', '📍 أنت خارج نطاق المسجد' + (data.distance ? ' (' + data.distance + ' متر)' : ''));
@@ -336,7 +336,7 @@ function handleResponse(data) {
       showStatus('err', '⚠️ هذا الجهاز سبق استخدامه لتحضير شخص آخر اليوم.<br><small>كل جهاز يمكنه تحضير رقم إداري واحد فقط في اليوم — إن كان هناك خطأ، راجع الإدارة.</small>');
       break;
     default:
-      showStatus('err', data.message || 'حدث خطأ غير متوقع، حاول مجدداً');
+      showStatus('err', data.message || 'حدث خطأ غير متوقع، حاول مجددًا');
   }
 }
 </script>
