@@ -184,7 +184,7 @@
     </div>
 
     <label for="adminCode">الرقم الإداري</label>
-    <input type="text" id="adminCode" placeholder="مثال: 0001-1234" inputmode="text" autocomplete="off">
+    <input type="text" id="adminCode" placeholder="مثال: 0001-1234" inputmode="text" autocomplete="off" maxlength="9">
 
     <button class="btn" id="submitBtn" onclick="submitAttendance()">تسجيل الحضور</button>
 
@@ -197,6 +197,29 @@
   </div>
 
 <script>
+// تنسيق الرقم الإداري تلقائياً بالشكل 0001-1234 أثناء الكتابة أو اللصق.
+// تُحذف أي شرطات موجودة مسبقاً في النص أولاً (سواء من كتابة المستخدم أو من
+// نسخ/لصق رقم يحوي شرطة بالفعل)، ثم تُعاد إضافة شرطة واحدة فقط في الموضع الصحيح
+// بعد أول 4 أرقام — هذا يمنع تكرار الشرطة أو وضعها في موضع خاطئ عند اللصق.
+function formatAdminCodeInput(inputEl) {
+  let digitsOnly = inputEl.value.replace(/[^0-9]/g, ''); // إزالة كل ما عدا الأرقام (يشمل أي شرطة موجودة)
+  digitsOnly = digitsOnly.substring(0, 8); // أقصى طول منطقي: 4 أرقام + 4 أرقام
+  let formatted = digitsOnly;
+  if (digitsOnly.length > 4) {
+    formatted = digitsOnly.substring(0, 4) + '-' + digitsOnly.substring(4);
+  }
+  inputEl.value = formatted;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const adminCodeInput = document.getElementById('adminCode');
+  if (adminCodeInput) {
+    adminCodeInput.addEventListener('input', function () {
+      formatAdminCodeInput(adminCodeInput);
+    });
+  }
+});
+
 function getDeviceFingerprint() {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
