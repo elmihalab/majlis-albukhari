@@ -256,7 +256,7 @@
       <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="saveMaxDistance()">حفظ المسافة</button>
     </div>
 
-    <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">موقع تجريبي (للاختبار بعيداً عن الجامع)</label>
+    <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">موقع تجريبي (للاختبار بعيدًا عن الجامع)</label>
     <div class="two-col">
       <div>
         <label>خط العرض (Lat)</label>
@@ -275,12 +275,12 @@
       <button class="btn btn-open" onclick="setTestLocation(true)">تفعيل الموقع التجريبي</button>
       <button class="btn btn-close" onclick="setTestLocation(false)">العودة لموقع المسجد</button>
     </div>
-    <div class="override-note">عند تفعيل الموقع التجريبي، يُحسب أذان العصر والمسافة من هذا الموقع بدل موقع المسجد الحقيقي — لجميع الطلاب أيضاً. تذكّر إيقافه بعد الاختبار.</div>
+    <div class="override-note">عند تفعيل الموقع التجريبي، يُحسب أذان العصر والمسافة من هذا الموقع بدل موقع المسجد الحقيقي — لجميع الطلاب أيضًا. تذكّر إيقافه بعد الاختبار.</div>
   </div>
 
   <!-- نافذة يدوية بوقتين محددين -->
   <div class="section">
-    <h2>ضبط نافذة بوقت محدد يدوياً (اختياري)</h2>
+    <h2>ضبط نافذة بوقت محدد يدويًا (اختياري)</h2>
     <div class="two-col">
       <div>
         <label>وقت البداية</label>
@@ -333,7 +333,7 @@
       <input type="text" id="forceCode" placeholder="الرقم الإداري (مثال: 0001-1234)" maxlength="9">
       <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="forceAttend()">تحضير الآن</button>
     </div>
-    <div class="override-note">يتجاوز شرط الموقع والوقت والتكرار والجهاز بالكامل — يُستخدم لحالات استثنائية فقط. لا حاجة لكتابة الشرطة (-)، تُضاف تلقائياً، ويمكن اللصق بالشرطة أو بدونها.</div>
+    <div class="override-note">يتجاوز شرط الموقع والوقت والتكرار والجهاز بالكامل — يُستخدم لحالات استثنائية فقط. لا حاجة لكتابة الشرطة (-)، تُضاف تلقائيًا، ويمكن اللصق بالشرطة أو بدونها.</div>
 
     <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">رفع حظر تكرار الجهاز (لليوم)</label>
     <div class="field-row">
@@ -347,7 +347,7 @@
       <input type="text" id="removeCode" placeholder="الرقم الإداري" maxlength="9">
       <button class="btn btn-danger-outline" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="removeToday()">حذف تحضيره اليوم</button>
     </div>
-    <div class="override-note">لا حاجة لكتابة الشرطة (-)، تُضاف تلقائياً، ويمكن اللصق بالشرطة أو بدونها.</div>
+    <div class="override-note">لا حاجة لكتابة الشرطة (-)، تُضاف تلقائيًا، ويمكن اللصق بالشرطة أو بدونها.</div>
   </div>
 
 </div>
@@ -358,7 +358,7 @@
 let adminToken = sessionStorage.getItem('admin_token') || null;
 let statusInterval = null;
 
-// تنسيق الرقم الإداري تلقائياً بالشكل 0001-1234 — نفس منطق attendance.html،
+// تنسيق الرقم الإداري تلقائيًا بالشكل 0001-1234 — نفس منطق attendance.html،
 // يتعامل بأمان مع اللصق حتى لو كان النص الملصوق يحوي شرطة بالفعل.
 function formatAdminCodeInput(inputEl) {
   let digitsOnly = inputEl.value.replace(/[^0-9]/g, '');
@@ -433,7 +433,7 @@ function showDashboard() {
 
 function handleAuthError(data) {
   if (data && data.status === 'unauthorized') {
-    showToast('جلستك انتهت — الرجاء تسجيل الدخول مجدداً', 'err');
+    showToast('جلستك انتهت — الرجاء تسجيل الدخول مجددًا', 'err');
     logout();
     return true;
   }
@@ -583,7 +583,7 @@ function clearManualWindow() {
     .then(function (data) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
-        showToast('تم المسح — يُحسب أذان العصر تلقائياً الآن', 'ok');
+        showToast('تم المسح — يُحسب أذان العصر تلقائيًا الآن', 'ok');
         document.getElementById('manualStart').value = '';
         document.getElementById('manualEnd').value = '';
         refreshStatus();
@@ -757,7 +757,7 @@ function loadTodayList() {
 }
 
 // التصدير من البيانات الأصلية القادمة من السيرفر، لا من الجدول المعروض على الشاشة —
-// هذا يضمن أن الملف المُصدَّر صحيح وكامل (بصمة الجهاز كاملة بدون اقتطاع) دائماً،
+// هذا يضمن أن الملف المُصدَّر صحيح وكامل (بصمة الجهاز كاملة بدون اقتطاع) دائمًا،
 // حتى لو لم يضغط الإداري "تحديث القائمة" قبل التصدير.
 function exportToExcel() {
   function buildAndDownload(list) {
@@ -785,7 +785,7 @@ function exportToExcel() {
     showToast('✅ تم تصدير ' + list.length + ' سجل بنجاح', 'ok');
   }
 
-  // لو القائمة محمّلة مسبقاً، نُصدّرها فوراً. وإلا نجلبها أولاً من السيرفر ثم نُصدّر.
+  // لو القائمة محمّلة مسبقًا، نُصدّرها فورًا. وإلا نجلبها أولاً من السيرفر ثم نُصدّر.
   if (lastLoadedAttendanceList.length > 0) {
     buildAndDownload(lastLoadedAttendanceList);
   } else {
