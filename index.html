@@ -102,6 +102,17 @@
     .lookup-copy-btn { width: 34px; height: 34px; border-radius: 7px; border: 0.5px solid #ccc; background: #fff; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; }
     .lookup-copy-btn:hover { background: #f0f7f3; border-color: #1a3a2a; }
     .footer { text-align: center; font-size: 11px; color: #aaa; padding: 1rem; border-top: 0.5px solid #e8e0d8; }
+
+    /* ===== بطاقة زر التحضير اليومي الذكي ===== */
+    .attendance-box { margin: 1.5rem 1.5rem 0; background: #f7f9f7; border: 0.5px solid #dde5dd; border-radius: 12px; padding: 1.1rem 1.25rem; text-align: center; }
+    .attendance-status-text { font-size: 12.5px; color: #5c5c52; line-height: 1.8; margin-bottom: 0.85rem; }
+    .attendance-btn-disabled, .attendance-btn-active {
+      display: block; width: 100%; padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 700;
+      font-family: 'Qamra', sans-serif; text-decoration: none; box-sizing: border-box; transition: background 0.2s;
+    }
+    .attendance-btn-disabled { background: #b8b8b0; color: #fff; pointer-events: none; cursor: not-allowed; }
+    .attendance-btn-active { background: #1a3a2a; color: #fff; pointer-events: auto; cursor: pointer; }
+    .attendance-btn-active:hover { background: #0f2419; }
   </style>
 </head>
 <body>
@@ -116,6 +127,11 @@
     fetchpriority="high"
     decoding="async"
   >
+
+  <div id="attendance-box" class="attendance-box">
+    <div class="attendance-status-text" id="attendanceStatusText">جاري التحقق من حالة التحضير...</div>
+    <a id="attendanceButtonLink" href="attendance.html" class="attendance-btn-disabled">تسجيل الحضور اليومي</a>
+  </div>
 
   <div id="form-section">
     <div class="notice">
@@ -411,6 +427,34 @@
       document.getElementById('btn-spin').style.display = 'none';
     }
   }
+  function refreshAttendanceButton() {
+    fetch('/api/window-info')
+      .then(r => r.json())
+      .then(data => {
+        const textEl = document.getElementById('attendanceStatusText');
+        const linkEl = document.getElementById('attendanceButtonLink');
+        if (!textEl || !linkEl) return;
+
+        if (data.status !== 'ok') {
+          textEl.textContent = 'تعذّر التحقق من حالة التحضير حالياً';
+          return;
+        }
+
+        textEl.textContent = data.label || '';
+
+        if (data.windowOpen) {
+          linkEl.className = 'attendance-btn-active';
+        } else {
+          linkEl.className = 'attendance-btn-disabled';
+        }
+      })
+      .catch(() => {
+        const textEl = document.getElementById('attendanceStatusText');
+        if (textEl) textEl.textContent = 'تعذّر الاتصال بالسيرفر للتحقق من حالة التحضير';
+      });
+  }
+  refreshAttendanceButton();
+  setInterval(refreshAttendanceButton, 60000);
 </script>
 </body>
 </html>
