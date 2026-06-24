@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>تحضير المجلس الحديثي الكبير</title>
+
+<style>
+  @font-face {
+    font-family: 'Qamra';
+    src: url('fonts/ITFQOMRAARABIC-REGULAR.TTF') format('truetype');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: 'Qamra';
+    src: url('fonts/ITFQOMRAARABIC-MEDIUM.TTF') format('truetype');
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: 'Qamra';
+    src: url('fonts/ITFQOMRAARABIC-BOLD.TTF') format('truetype');
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: 'Qamra';
+    src: url('fonts/ITFQOMRAARABIC-BLACK.TTF') format('truetype');
+    font-weight: 900;
+  }
+
+  :root {
+    --green-dark: #1a3a2a;
+    --green-mid: #2d5440;
+    --gold: #c9a14a;
+    --cream: #f7f4ec;
+    --ink: #1c2420;
+    --error: #8a2e2e;
+    --ok: #1a6b3a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--green-dark) 0%, var(--green-mid) 45%, var(--cream) 45%);
+    font-family: 'Qamra', 'Tahoma', sans-serif;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 48px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    padding: 28px 24px 32px;
+    margin-top: 18px;
+  }
+
+  .title {
+    text-align: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 22px;
+    margin: 8px 0 2px;
+    letter-spacing: 0.3px;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--gold);
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--green-dark);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e3ded0;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: 'Qamra', sans-serif;
+    text-align: center;
+    letter-spacing: 1px;
+    direction: ltr;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--green-mid);
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: var(--green-dark);
+    color: #fff;
+    font-family: 'Qamra', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { background: #999; cursor: not-allowed; }
+
+  .status-box {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: center;
+    display: none;
+  }
+  .status-box.show { display: block; }
+  .status-box.ok { background: #e7f3ec; color: var(--ok); border: 1px solid #b9ddc7; }
+  .status-box.err { background: #fbeaea; color: var(--error); border: 1px solid #f0c4c4; }
+  .status-box.wait { background: #f1f0ea; color: #6b6450; border: 1px solid #ddd8c8; }
+
+  .spinner {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border: 3px solid rgba(0,0,0,0.15);
+    border-top-color: var(--green-mid);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hint {
+    margin-top: 14px;
+    font-size: 12.5px;
+    color: #8a8472;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .device-warning {
+    background: #fdf6e3;
+    border: 1.5px solid var(--gold);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #6b5520;
+    line-height: 1.7;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .big-check {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 6px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="title">تحضير المجلس الحديثي الكبير</div>
+  <div class="subtitle">جامع عبدالله بن عباس — حلب</div>
+
+  <div class="card">
+    <div class="device-warning">
+      ⚠️ تنبيه: لا يمكن تحضير أكثر من رقم إداري واحد من نفس الجهاز في اليوم نفسه.<br>
+      كل شخص يجب أن يحضّر نفسه من جهازه الخاص.
+    </div>
+
+    <label for="adminCode">الرقم الإداري</label>
+    <input type="text" id="adminCode" placeholder="مثال: 0001-1234" inputmode="text" autocomplete="off">
+
+    <button class="btn" id="submitBtn" onclick="submitAttendance()">تسجيل الحضور</button>
+
+    <div class="status-box" id="statusBox"></div>
+
+    <div class="hint">
+      يجب أن تكون داخل محيط الجامع وأن يكون GPS مفعّلاً على جهازك.<br>
+      التحضير متاح فقط خلال نافذة الوقت المحددة من الإدارة.
+    </div>
+  </div>
+
+<script>
+function getDeviceFingerprint() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.textBaseline = "top";
+    ctx.font = "14px Arial";
+    ctx.fillText("MajlisAttendance_v1", 2, 2);
+    const raw = navigator.userAgent
+              + screen.width + "x" + screen.height
+              + screen.colorDepth
+              + new Date().getTimezoneOffset()
+              + canvas.toDataURL();
+    return btoa(unescape(encodeURIComponent(raw))).substring(0, 32);
+}
+
+function showStatus(type, html) {
+  const box = document.getElementById('statusBox');
+  box.className = 'status-box show ' + type;
+  box.innerHTML = html;
+}
+
+function setLoading(isLoading) {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = isLoading;
+  btn.textContent = isLoading ? 'جاري التحقق...' : 'تسجيل الحضور';
+}
+
+function submitAttendance() {
+  const adminCode = document.getElementById('adminCode').value.trim();
+
+  if (!adminCode) {
+    showStatus('err', 'الرجاء إدخال الرقم الإداري');
+    return;
+  }
+
+  if (!navigator.geolocation) {
+    showStatus('err', 'متصفحك لا يدعم تحديد الموقع — جرّب متصفحاً آخر');
+    return;
+  }
+
+  setLoading(true);
+  showStatus('wait', 'جاري تحديد موقعك<span class="spinner"></span>');
+
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      const deviceId = getDeviceFingerprint();
+
+      showStatus('wait', 'جاري إرسال طلب التحضير<span class="spinner"></span>');
+
+      fetch('/api/attendance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          adminCode: adminCode,
+          lat: lat,
+          lng: lng,
+          timestamp: new Date().toISOString(),
+          deviceId: deviceId
+        })
+      })
+      .then(r => r.json())
+      .then(handleResponse)
+      .catch(function () {
+        showStatus('err', 'تعذّر الاتصال بالسيرفر — تحقق من اتصالك بالإنترنت وحاول مجدداً');
+        setLoading(false);
+      });
+    },
+    function (error) {
+      let msg = 'تعذّر تحديد موقعك.';
+      if (error.code === error.PERMISSION_DENIED) {
+        msg = 'يجب السماح بالوصول إلى الموقع (GPS) لتسجيل الحضور. الرجاء تفعيل إذن الموقع من إعدادات المتصفح.';
+      }
+      showStatus('err', msg);
+      setLoading(false);
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
+}
+
+function handleResponse(data) {
+  setLoading(false);
+
+  switch (data.status) {
+    case 'ok':
+      showStatus('ok', '<span class="big-check">✅</span>تم تسجيل حضورك بنجاح يا <strong>' + (data.name || '') + '</strong>');
+      document.getElementById('submitBtn').disabled = true;
+      break;
+    case 'not_found':
+      showStatus('err', '⚠️ الرقم الإداري غير موجود — تأكد من كتابته بشكل صحيح');
+      break;
+    case 'window_closed':
+      showStatus('err', '🕓 التحضير مغلق حالياً' + (data.detail ? '<br><small>' + data.detail + '</small>' : ''));
+      break;
+    case 'no_location':
+      showStatus('err', '📍 تعذّر تحديد موقعك — تأكد من تفعيل GPS وحاول مجدداً');
+      break;
+    case 'out_of_range':
+      showStatus('err', '📍 أنت خارج نطاق المسجد' + (data.distance ? ' (' + data.distance + ' متر)' : ''));
+      break;
+    case 'already_done':
+      showStatus('ok', '✔️ سبق تسجيل حضورك اليوم، بارك الله فيك');
+      break;
+    case 'device_conflict':
+      showStatus('err', '⚠️ هذا الجهاز سبق استخدامه لتحضير شخص آخر اليوم.<br><small>كل جهاز يمكنه تحضير رقم إداري واحد فقط في اليوم — إن كان هناك خطأ، راجع الإدارة.</small>');
+      break;
+    default:
+      showStatus('err', data.message || 'حدث خطأ غير متوقع، حاول مجدداً');
+  }
+}
+</script>
+
+</body>
+</html>
