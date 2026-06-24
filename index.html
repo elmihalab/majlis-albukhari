@@ -237,7 +237,7 @@
       </div>
       <div class="copy-feedback" id="copy-feedback">تم نسخ الرقم ✓</div>
       احتفظ بهذا الرقم أو خذ لقطة شاشة الآن.<br>
-      ستحتاجه يومياً لإثبات حضورك داخل المجلس.
+      ستحتاجه يوميًا لإثبات حضورك داخل المجلس.
       <br><br>
       خطوتك الأخيرة والأهم لاعتماد تسجيلك: انضم إلى مجتمع الواتساب الرسمي للمجلس
       حيث ستُنشر كافة الإعلانات والتعليمات وروابط التحضير اليومية.
@@ -301,7 +301,7 @@
       btn.disabled = false;
       document.getElementById('lookup-btn-text').style.display = 'block';
       document.getElementById('lookup-spin').style.display = 'none';
-      resultBox.innerHTML = '<span class="not-found">حدث خطأ في الاتصال، يرجى المحاولة مجدداً.</span>';
+      resultBox.innerHTML = '<span class="not-found">حدث خطأ في الاتصال، يرجى المحاولة مجددًا.</span>';
     }
   }
 
@@ -410,7 +410,7 @@
         return;
       }
       if (result.status !== 'ok') {
-        alert('حدث خطأ في التسجيل. يرجى المحاولة مجدداً.');
+        alert('حدث خطأ في التسجيل. يرجى المحاولة مجددًا.');
         btn.disabled = false; document.getElementById('btn-text').style.display = 'block'; document.getElementById('btn-spin').style.display = 'none';
         return;
       }
@@ -421,7 +421,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
     } catch (err) {
-      alert('حدث خطأ في الاتصال. يرجى التحقق من الإنترنت والمحاولة مجدداً.');
+      alert('حدث خطأ في الاتصال. يرجى التحقق من الإنترنت والمحاولة مجددًا.');
       btn.disabled = false;
       document.getElementById('btn-text').style.display = 'block';
       document.getElementById('btn-spin').style.display = 'none';
@@ -436,7 +436,7 @@
         if (!textEl || !linkEl) return;
 
         if (data.status !== 'ok') {
-          textEl.textContent = 'تعذّر التحقق من حالة التحضير حالياً';
+          textEl.textContent = 'تعذّر التحقق من حالة التحضير حاليًا';
           return;
         }
 
