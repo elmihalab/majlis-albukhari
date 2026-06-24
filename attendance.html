@@ -102,6 +102,14 @@
     border-color: var(--green-mid);
   }
 
+  .field-note {
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: #9a9484;
+    text-align: center;
+    line-height: 1.6;
+  }
+
   .btn {
     width: 100%;
     margin-top: 18px;
@@ -185,6 +193,7 @@
 
     <label for="adminCode">الرقم الإداري</label>
     <input type="text" id="adminCode" placeholder="مثال: 0001-1234" inputmode="text" autocomplete="off" maxlength="9">
+    <div class="field-note">لا حاجة لكتابة الشرطة (-) بنفسك، تُضاف تلقائيًا. يمكنك أيضاً لصق الرقم كاملاً (بالشرطة أو بدونها).</div>
 
     <button class="btn" id="submitBtn" onclick="submitAttendance()">تسجيل الحضور</button>
 
@@ -197,7 +206,7 @@
   </div>
 
 <script>
-// تنسيق الرقم الإداري تلقائياً بالشكل 0001-1234 أثناء الكتابة أو اللصق.
+// تنسيق الرقم الإداري تلقائيًا بالشكل 0001-1234 أثناء الكتابة أو اللصق.
 // تُحذف أي شرطات موجودة مسبقاً في النص أولاً (سواء من كتابة المستخدم أو من
 // نسخ/لصق رقم يحوي شرطة بالفعل)، ثم تُعاد إضافة شرطة واحدة فقط في الموضع الصحيح
 // بعد أول 4 أرقام — هذا يمنع تكرار الشرطة أو وضعها في موضع خاطئ عند اللصق.
