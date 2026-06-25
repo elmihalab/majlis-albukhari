@@ -1,5 +1,5 @@
 // الأوامر المسموحة عبر هذا الـ proxy (كل ما يحتاج توكن إداري صالح)
-const POST_ACTIONS = ['setOverride', 'forceAttend', 'unbindDevice', 'removeToday', 'setLocationSettings'];
+const POST_ACTIONS = ['setOverride', 'forceAttend', 'unbindDevice', 'removeToday', 'setLocationSettings', 'resetAllSettings'];
 const GET_ACTIONS = ['getStatus', 'getTodayList'];
 
 export default async function handler(req, res) {
