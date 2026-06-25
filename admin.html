@@ -6,9 +6,7 @@
 <title>لوحة إدارة المجلس الحديثي الكبير</title>
 <meta property="og:title" content="المجلس الحديثي الكبير">
 <meta property="og:description" content="سماع صحيح الإمام البخاري — جامع عبدالله بن عباس، حلب">
-<meta property="og:image" content="https://majlis-albukhari.vercel.app/og-preview.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image" content="https://majlis-albukhari.vercel.app/header.jpg">
 <meta property="og:url" content="https://majlis-albukhari.vercel.app/admin.html">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -198,6 +196,27 @@
     background: #fff8f8;
   }
   .danger-zone h2 { color: var(--error); border-color: #f0c4c4; }
+
+  .reset-zone {
+    border: 2px double #8a6d2e;
+    background: #fffaf0;
+  }
+  .reset-zone h2 { color: #8a6d2e; border-color: #ecd9ad; }
+  .btn-reset-all {
+    width: 100%;
+    margin-top: 10px;
+    padding: 13px;
+    border: none;
+    border-radius: 9px;
+    background: #8a6d2e;
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14.5px;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn-reset-all:active { transform: scale(0.98); }
 </style>
 </head>
 <body>
@@ -360,6 +379,15 @@
     <div class="override-note">لا حاجة لكتابة الشرطة (-)، تُضاف تلقائيًا، ويمكن اللصق بالشرطة أو بدونها.</div>
   </div>
 
+  <!-- إعادة الضبط الشامل -->
+  <div class="section reset-zone">
+    <h2>↺ إعادة ضبط جميع الإعدادات</h2>
+    <p class="override-note" style="margin-top:0;">
+      يُرجع دفعة واحدة كل ما يلي لوضعه الطبيعي الافتراضي: وضع النافذة (تلقائي)، التمديد (صفر)، أي نافذة وقت يدوية محددة (تُمسح)، مسافة القبول (100م)، والموقع التجريبي (يُعطَّل ويُعاد لموقع المسجد الحقيقي). يُستخدم بعد جلسات الاختبار لضمان عدم نسيان أي قيمة تجريبية متبقية.
+    </p>
+    <button class="btn btn-reset-all" onclick="confirmResetAll()">إعادة ضبط كل الإعدادات للوضع الطبيعي</button>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
@@ -370,6 +398,18 @@ let statusInterval = null;
 
 // تنسيق الرقم الإداري تلقائيًا بالشكل 0001-1234 — نفس منطق attendance.html،
 // يتعامل بأمان مع اللصق حتى لو كان النص الملصوق يحوي شرطة بالفعل.
+// تحويل تاريخ من صيغة YYYY-MM-DD إلى صيغة عربية مقروءة D/M/YYYY،
+// مع تثبيت اتجاه العرض بعلامة LRM لمنع المتصفح من إعادة ترتيب الأرقام
+// بصرياً عند دمجها وسط نص عربي (نفس السبب الذي يجعل "2026-07-04" يظهر
+// معكوساً كـ "04-07-2026" داخل جملة عربية بدون هذا التثبيت).
+function formatArabicDate(isoDate) {
+  const parts = String(isoDate).split('-');
+  if (parts.length !== 3) return isoDate;
+  const LRM = '\u200E';
+  const formatted = parseInt(parts[2], 10) + '/' + parseInt(parts[1], 10) + '/' + parts[0];
+  return LRM + formatted + LRM;
+}
+
 function formatAdminCodeInput(inputEl) {
   let digitsOnly = inputEl.value.replace(/[^0-9]/g, '');
   digitsOnly = digitsOnly.substring(0, 8);
@@ -497,7 +537,7 @@ function renderStatus(data) {
 
   if (data.majlisStartDate && data.majlisEndDate) {
     document.getElementById('majlisRangeLine').textContent =
-      'فترة المجلس المسجَّلة في النظام: من ' + data.majlisStartDate + ' إلى ' + data.majlisEndDate + ' (عدا الجمعة)';
+      'فترة المجلس المسجَّلة في النظام: من ' + formatArabicDate(data.majlisStartDate) + ' إلى ' + formatArabicDate(data.majlisEndDate) + ' (عدا الجمعة)';
   }
 
   document.getElementById('todayCount').textContent = data.todayCount;
@@ -718,6 +758,37 @@ function setTestLocation(activate) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
         showToast(activate ? 'تم تفعيل الموقع التجريبي' : 'تم الرجوع لموقع المسجد الحقيقي', 'ok');
+        refreshStatus();
+      } else {
+        showToast(data.message || 'فشلت العملية', 'err');
+      }
+    })
+    .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
+}
+
+/* ===== إعادة الضبط الشامل ===== */
+
+function confirmResetAll() {
+  const sure = confirm(
+    'هل أنت متأكد؟\n\n' +
+    'سيُعاد ضبط: وضع النافذة (تلقائي)، التمديد (صفر)، النافذة اليدوية (تُمسح)، ' +
+    'مسافة القبول (100م)، والموقع التجريبي (يُعطَّل).\n\n' +
+    'هذا لا يحذف أي سجل حضور — فقط إعدادات التحكم.'
+  );
+  if (!sure) return;
+
+  postAdminAction({ action: 'resetAllSettings' })
+    .then(function (data) {
+      if (handleAuthError(data)) return;
+      if (data.status === 'ok') {
+        showToast('تم إعادة ضبط جميع الإعدادات للوضع الطبيعي', 'ok');
+        // مسح الحقول اليدوية في الواجهة لتعكس الإعادة فوراً
+        document.getElementById('extendMinutes').value = '';
+        document.getElementById('manualStart').value = '';
+        document.getElementById('manualEnd').value = '';
+        document.getElementById('testLat').value = '';
+        document.getElementById('testLng').value = '';
+        document.getElementById('testLabel').value = '';
         refreshStatus();
       } else {
         showToast(data.message || 'فشلت العملية', 'err');
