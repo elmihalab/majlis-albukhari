@@ -402,12 +402,15 @@ let statusInterval = null;
 // مع تثبيت اتجاه العرض بعلامة LRM لمنع المتصفح من إعادة ترتيب الأرقام
 // بصرياً عند دمجها وسط نص عربي (نفس السبب الذي يجعل "2026-07-04" يظهر
 // معكوساً كـ "04-07-2026" داخل جملة عربية بدون هذا التثبيت).
+// صيغة "04 - 07 - 2026" — الوحيدة المؤكدة بالتجربة الفعلية على الموقع
+// (انظر التعليق المفصَّل في AppsScript_v9.gs لشرح سبب فشل الصيغ الأخرى).
 function formatArabicDate(isoDate) {
   const parts = String(isoDate).split('-');
   if (parts.length !== 3) return isoDate;
-  const LRM = '\u200E';
-  const formatted = parseInt(parts[2], 10) + '/' + parseInt(parts[1], 10) + '/' + parts[0];
-  return LRM + formatted + LRM;
+  const day = String(parseInt(parts[2], 10)).padStart(2, '0');
+  const month = String(parseInt(parts[1], 10)).padStart(2, '0');
+  const year = parts[0];
+  return day + ' - ' + month + ' - ' + year;
 }
 
 function formatAdminCodeInput(inputEl) {
