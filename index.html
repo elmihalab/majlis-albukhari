@@ -45,8 +45,19 @@
       font-display: swap;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Qamra', sans-serif; background: #f0ebe3; min-height: 100vh; padding: 2rem 1rem; direction: rtl; }
-    .card { background: #ffffff; border-radius: 18px; border: 0.5px solid #ddd5c8; max-width: 640px; margin: 0 auto; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+    body {
+      font-family: 'Qamra', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem 0;
+      direction: rtl;
+      background-color: transparent;
+      background-image: url('bg-footer.jpg');
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-size: 100% auto;
+      padding-bottom: 28vw; /* تقليل المسافة — يكفي لإظهار الجزء السفلي من البنر */
+    }
+    .card { background: #ffffff; border-radius: 18px; border: 0.5px solid #ddd5c8; max-width: 640px; margin: 0 auto 0; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
     .header-img { width: 100%; height: auto; display: block; border-radius: 18px 18px 0 0; }
     .notice { background: #fffbf0; border-right: 3px solid #c8960a; margin: 1.5rem 1.5rem 0; border-radius: 8px; padding: 1rem 1rem 1rem 0.75rem; }
     .notice-title { font-size: 13px; font-weight: 700; color: #7a5c00; margin-bottom: 0.6rem; }
@@ -102,7 +113,6 @@
     .lookup-code-badge { background: #1a3a2a; color: #fff; border-radius: 7px; padding: 5px 16px; font-size: 17px; font-weight: 700; letter-spacing: 2px; direction: ltr; }
     .lookup-copy-btn { width: 34px; height: 34px; border-radius: 7px; border: 0.5px solid #ccc; background: #fff; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; }
     .lookup-copy-btn:hover { background: #f0f7f3; border-color: #1a3a2a; }
-    .footer { text-align: center; font-size: 11px; color: #aaa; padding: 1rem; border-top: 0.5px solid #e8e0d8; }
 
     /* ===== بطاقة زر التحضير اليومي الذكي ===== */
     .attendance-box { margin: 1.5rem 1.5rem 0; background: #f7f9f7; border: 0.5px solid #dde5dd; border-radius: 12px; padding: 1.1rem 1.25rem; text-align: center; }
@@ -249,10 +259,6 @@
       <br><br>
       <em>نفع الله بكم، ونلقاكم على خير في رحاب سنة النبي ﷺ</em>
     </div>
-  </div>
-
-  <div class="footer">
-    المجلس الحديثي الكبير — حلب 1448هـ | جامع عبدالله بن عباس
   </div>
 </div>
 
