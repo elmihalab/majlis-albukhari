@@ -14,26 +14,10 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <style>
-  @font-face {
-    font-family: 'Qamra';
-    src: url('fonts/ITFQOMRAARABIC-REGULAR.TTF') format('truetype');
-    font-weight: 400;
-  }
-  @font-face {
-    font-family: 'Qamra';
-    src: url('fonts/ITFQOMRAARABIC-MEDIUM.TTF') format('truetype');
-    font-weight: 500;
-  }
-  @font-face {
-    font-family: 'Qamra';
-    src: url('fonts/ITFQOMRAARABIC-BOLD.TTF') format('truetype');
-    font-weight: 700;
-  }
-  @font-face {
-    font-family: 'Qamra';
-    src: url('fonts/ITFQOMRAARABIC-BLACK.TTF') format('truetype');
-    font-weight: 900;
-  }
+  @font-face { font-family: 'Qamra'; src: url('fonts/ITFQOMRAARABIC-REGULAR.TTF') format('truetype'); font-weight: 400; }
+  @font-face { font-family: 'Qamra'; src: url('fonts/ITFQOMRAARABIC-MEDIUM.TTF') format('truetype'); font-weight: 500; }
+  @font-face { font-family: 'Qamra'; src: url('fonts/ITFQOMRAARABIC-BOLD.TTF') format('truetype'); font-weight: 700; }
+  @font-face { font-family: 'Qamra'; src: url('fonts/ITFQOMRAARABIC-BLACK.TTF') format('truetype'); font-weight: 900; }
 
   :root {
     --green-dark: #1a3a2a;
@@ -44,9 +28,7 @@
     --error: #8a2e2e;
     --ok: #1a6b3a;
   }
-
   * { box-sizing: border-box; }
-
   body {
     margin: 0;
     min-height: 100vh;
@@ -56,93 +38,82 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 24px 16px 48px;
+    padding: 24px 16px 0;
   }
-
   .card {
-    width: 100%;
-    max-width: 420px;
-    background: #fff;
-    border-radius: 18px;
+    width: 100%; max-width: 420px;
+    background: #fff; border-radius: 18px;
     box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-    padding: 28px 24px 32px;
-    margin-top: 18px;
+    padding: 28px 24px 32px; margin-top: 18px;
   }
+  .title { text-align: center; color: #fff; font-weight: 900; font-size: 22px; margin: 8px 0 2px; }
+  .subtitle { text-align: center; color: var(--gold); font-weight: 500; font-size: 14px; margin-bottom: 10px; }
 
-  .title {
-    text-align: center;
-    color: #fff;
-    font-weight: 900;
-    font-size: 22px;
-    margin: 8px 0 2px;
-    letter-spacing: 0.3px;
+  /* === شريط التقدم === */
+  .progress-wrap {
+    width: 100%; max-width: 420px;
+    background: #fff; border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    padding: 18px 20px; margin-top: 14px;
   }
-  .subtitle {
-    text-align: center;
-    color: var(--gold);
-    font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 10px;
+  .progress-title { font-size: 13px; font-weight: 700; color: var(--green-dark); margin-bottom: 10px; text-align: center; }
+  .progress-bar-bg { background: #e8e4d8; border-radius: 8px; height: 12px; width: 100%; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--green-dark), var(--gold)); transition: width 0.6s ease; }
+  .progress-nums { display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-top: 5px; }
+  .progress-dots { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; justify-content: center; }
+  .dot {
+    width: 22px; height: 22px; border-radius: 50%; font-size: 9px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; border: 1.5px solid #ddd;
+    background: #f5f3ee; color: #bbb;
   }
+  .dot.done-asr { background: var(--green-dark); border-color: var(--green-dark); color: #fff; }
+  .dot.done-both { background: linear-gradient(135deg, var(--green-dark) 50%, var(--gold) 50%); border-color: var(--gold); color: #fff; }
+  .dot.done-maghrib { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .dot.today { box-shadow: 0 0 0 2px var(--gold); }
+  .progress-motivate {
+    margin-top: 10px; font-size: 12.5px; color: var(--green-dark); text-align: center;
+    font-weight: 700; border-top: 1px dashed #e0ddd4; padding-top: 8px; line-height: 1.7;
+  }
+  .legend { display: flex; gap: 10px; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 4px; font-size: 10.5px; color: #666; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
 
-  label {
-    display: block;
-    font-weight: 700;
-    font-size: 14px;
-    margin-bottom: 8px;
-    color: var(--green-dark);
-  }
-
+  /* === بطاقة التحضير === */
+  label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px; color: var(--green-dark); }
   input[type="text"] {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #e3ded0;
-    border-radius: 10px;
-    font-size: 18px;
-    font-family: 'Qamra', sans-serif;
-    text-align: center;
-    letter-spacing: 1px;
-    direction: ltr;
-    transition: border-color 0.2s;
+    width: 100%; padding: 14px 16px; border: 2px solid #e3ded0;
+    border-radius: 10px; font-size: 18px; font-family: 'Qamra', sans-serif;
+    text-align: center; letter-spacing: 1px; direction: ltr; transition: border-color 0.2s;
   }
-  input[type="text"]:focus {
-    outline: none;
-    border-color: var(--green-mid);
-  }
+  input[type="text"]:focus { outline: none; border-color: var(--green-mid); }
+  .field-note { margin-top: 6px; font-size: 11.5px; color: #9a9484; text-align: center; line-height: 1.6; }
 
-  .field-note {
-    margin-top: 6px;
-    font-size: 11.5px;
-    color: #9a9484;
-    text-align: center;
-    line-height: 1.6;
+  /* === مؤشر الجلسة الحالية === */
+  .session-indicator {
+    display: flex; gap: 8px; margin-bottom: 18px;
   }
+  .session-badge {
+    flex: 1; padding: 10px 8px; border-radius: 10px; text-align: center;
+    font-size: 12.5px; font-weight: 700; border: 2px solid #e3ded0;
+    background: #f9f8f4; color: #bbb; transition: all 0.3s;
+  }
+  .session-badge.active { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+  .session-badge.done { background: #e8f5ec; color: var(--ok); border-color: #b9ddc7; }
+  .session-badge .s-icon { font-size: 18px; display: block; margin-bottom: 3px; }
+  .session-badge .s-time { font-size: 10px; font-weight: 500; opacity: 0.8; display: block; }
 
   .btn {
-    width: 100%;
-    margin-top: 18px;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    background: var(--green-dark);
-    color: #fff;
-    font-family: 'Qamra', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.15s, background 0.2s;
+    width: 100%; margin-top: 18px; padding: 15px; border: none;
+    border-radius: 10px; background: var(--green-dark); color: #fff;
+    font-family: 'Qamra', sans-serif; font-weight: 700; font-size: 16px;
+    cursor: pointer; transition: transform 0.15s, background 0.2s;
   }
   .btn:active { transform: scale(0.98); }
   .btn:disabled { background: #999; cursor: not-allowed; }
 
   .status-box {
-    margin-top: 18px;
-    padding: 16px;
-    border-radius: 10px;
-    font-size: 15px;
-    line-height: 1.7;
-    text-align: center;
-    display: none;
+    margin-top: 18px; padding: 16px; border-radius: 10px;
+    font-size: 15px; line-height: 1.7; text-align: center; display: none;
   }
   .status-box.show { display: block; }
   .status-box.ok { background: #e7f3ec; color: var(--ok); border: 1px solid #b9ddc7; }
@@ -150,42 +121,49 @@
   .status-box.wait { background: #f1f0ea; color: #6b6450; border: 1px solid #ddd8c8; }
 
   .spinner {
-    display: inline-block;
-    width: 18px; height: 18px;
-    border: 3px solid rgba(0,0,0,0.15);
-    border-top-color: var(--green-mid);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    vertical-align: middle;
-    margin-left: 8px;
+    display: inline-block; width: 18px; height: 18px;
+    border: 3px solid rgba(0,0,0,0.15); border-top-color: var(--green-mid);
+    border-radius: 50%; animation: spin 0.8s linear infinite;
+    vertical-align: middle; margin-left: 8px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .hint {
-    margin-top: 14px;
-    font-size: 12.5px;
-    color: #8a8472;
-    text-align: center;
-    line-height: 1.6;
-  }
-
+  .hint { margin-top: 14px; font-size: 12.5px; color: #8a8472; text-align: center; line-height: 1.6; }
   .device-warning {
-    background: #fdf6e3;
-    border: 1.5px solid var(--gold);
-    border-radius: 10px;
-    padding: 12px 14px;
-    font-size: 13px;
-    color: #6b5520;
-    line-height: 1.7;
-    text-align: center;
-    margin-bottom: 18px;
+    background: #fdf6e3; border: 1.5px solid var(--gold); border-radius: 10px;
+    padding: 12px 14px; font-size: 13px; color: #6b5520; line-height: 1.7;
+    text-align: center; margin-bottom: 18px;
+  }
+  .big-check { font-size: 48px; display: block; margin-bottom: 6px; }
+
+  /* === الشهادة === */
+  .certificate {
+    width: 100%; max-width: 420px; background: #fff; border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15); margin-top: 14px; overflow: hidden; display: none;
+  }
+  .certificate.show { display: block; }
+  .cert-header { background: var(--green-dark); padding: 20px 24px; text-align: center; }
+  .cert-header .cert-icon { font-size: 36px; display: block; margin-bottom: 6px; }
+  .cert-header h2 { color: #fff; font-size: 18px; font-weight: 900; margin: 0 0 4px; }
+  .cert-header p { color: var(--gold); font-size: 12px; margin: 0; }
+  .cert-body { padding: 20px 24px; text-align: center; }
+  .cert-name { font-size: 20px; font-weight: 900; color: var(--green-dark); margin: 10px 0 6px; }
+  .cert-text { font-size: 13px; color: #555; line-height: 1.9; }
+  .cert-seal { font-size: 30px; margin: 12px 0; }
+  .cert-footer { background: #f7f4ec; padding: 12px 20px; text-align: center; font-size: 11px; color: #888; border-top: 1px solid #e8e4d8; }
+  .print-btn {
+    margin-top: 14px; padding: 11px 24px; background: var(--gold); color: #fff;
+    border: none; border-radius: 9px; font-family: 'Qamra', sans-serif;
+    font-weight: 700; font-size: 14px; cursor: pointer; display: inline-block;
   }
 
-  .big-check {
-    font-size: 48px;
-    display: block;
-    margin-bottom: 6px;
+  /* === ذيل الصفحة بالصورة === */
+  .page-footer {
+    width: 100%; max-width: 420px; margin-top: 22px;
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   }
+  .page-footer img { width: 100%; display: block; }
 </style>
 </head>
 <body>
@@ -193,15 +171,74 @@
   <div class="title">تحضير المجلس الحديثي الكبير</div>
   <div class="subtitle">جامع عبدالله بن عباس — حلب</div>
 
+  <!-- شريط التقدم -->
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-title">تقدّمك في مجلس السماع</div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-nums">
+      <span id="progressDone">0 / 36 جلسة</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-dots" id="progressDots"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green-dark)"></div> حضور العصر</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> حضور المغرب</div>
+      <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,var(--green-dark) 50%,var(--gold) 50%)"></div> كلاهما</div>
+    </div>
+    <div class="progress-motivate" id="progressMotivate"></div>
+  </div>
+
+  <!-- الشهادة -->
+  <div class="certificate" id="certificateBox">
+    <div class="cert-header">
+      <span class="cert-icon">🏅</span>
+      <h2>شهادة إتمام المجلس الحديثي</h2>
+      <p>المجلس الحديثي الكبير — سماع صحيح الإمام البخاري</p>
+    </div>
+    <div class="cert-body">
+      <div class="cert-text">يُشهَد لـ</div>
+      <div class="cert-name" id="certName"></div>
+      <div class="cert-text">
+        بأنه أتمّ حضور جميع جلسات المجلس الحديثي الكبير<br>
+        سماع صحيح الإمام البخاري رحمه الله<br>
+        <strong>18 يومًا — 36 جلسة — جامع عبدالله بن عباس، حلب</strong><br>
+        1448 هـ
+      </div>
+      <div class="cert-seal">📜 🌿 📜</div>
+      <div class="cert-text" style="font-size:12px;color:#888">
+        "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ"
+      </div>
+      <button class="print-btn" onclick="window.print()">🖨 طباعة الشهادة</button>
+    </div>
+    <div class="cert-footer">أصدرته شعبة الشؤون العلمية — مديرية أوقاف حلب — 1448 هـ</div>
+  </div>
+
+  <!-- بطاقة التحضير -->
   <div class="card">
     <div class="device-warning">
-      ⚠️ تنبيه: لا يمكن تحضير أكثر من رقم إداري واحد من نفس الجهاز في اليوم نفسه.<br>
+      ⚠️ تنبيه: لا يمكن تحضير أكثر من رقم إداري واحد من نفس الجهاز في الجلسة نفسها.<br>
       كل شخص يجب أن يحضّر نفسه من جهازه الخاص.
+    </div>
+
+    <!-- مؤشر الجلسة -->
+    <div class="session-indicator" id="sessionIndicator">
+      <div class="session-badge" id="badgeAsr">
+        <span class="s-icon">🕌</span>
+        جلسة العصر
+        <span class="s-time" id="asrTimeLabel"></span>
+      </div>
+      <div class="session-badge" id="badgeMaghrib">
+        <span class="s-icon">🌙</span>
+        جلسة المغرب
+        <span class="s-time" id="maghribTimeLabel"></span>
+      </div>
     </div>
 
     <label for="adminCode">الرقم الإداري</label>
     <input type="text" id="adminCode" placeholder="مثال: 0001-1234" inputmode="text" autocomplete="off" maxlength="9">
-    <div class="field-note">لا حاجة لكتابة الشرطة (-) بنفسك، تُضاف تلقائيًا. يمكنك أيضًا لصق الرقم كاملاً (بالشرطة أو بدونها).</div>
+    <    <div class="field-note">لا حاجة لكتابة الشرطة (-) بنفسك، تُضاف تلقائيًا. يمكنك أيضًا لصق الرقم كاملاً (بالشرطة أو بدونها).</div>
 
     <button class="btn" id="submitBtn" onclick="submitAttendance()">تسجيل الحضور</button>
 
@@ -209,145 +246,270 @@
 
     <div class="hint">
       يجب أن تكون داخل محيط الجامع وأن يكون GPS مفعّلاً على جهازك.<br>
-      التحضير متاح فقط خلال نافذة الوقت المحددة من الإدارة.
+      التحضير متاح خلال نافذة العصر أو نافذة المغرب.
     </div>
   </div>
 
-<script>
-// تنسيق الرقم الإداري تلقائيًا بالشكل 0001-1234 أثناء الكتابة أو اللصق.
-// تُحذف أي شرطات موجودة مسبقًا في النص أولاً (سواء من كتابة المستخدم أو من
-// نسخ/لصق رقم يحوي شرطة بالفعل)، ثم تُعاد إضافة شرطة واحدة فقط في الموضع الصحيح
-// بعد أول 4 أرقام — هذا يمنع تكرار الشرطة أو وضعها في موضع خاطئ عند اللصق.
-function formatAdminCodeInput(inputEl) {
-  let digitsOnly = inputEl.value.replace(/[^0-9]/g, ''); // إزالة كل ما عدا الأرقام (يشمل أي شرطة موجودة)
-  digitsOnly = digitsOnly.substring(0, 8); // أقصى طول منطقي: 4 أرقام + 4 أرقام
-  let formatted = digitsOnly;
-  if (digitsOnly.length > 4) {
-    formatted = digitsOnly.substring(0, 4) + '-' + digitsOnly.substring(4);
-  }
-  inputEl.value = formatted;
-}
+  <!-- ذيل الصفحة -->
+  <div class="page-footer">
+    <img src="footer-awqaf.png" alt="شعبة الشؤون العلمية بحلب 1448 هـ" onerror="this.parentElement.style.display='none'">
+  </div>
 
-document.addEventListener('DOMContentLoaded', function () {
-  const adminCodeInput = document.getElementById('adminCode');
-  if (adminCodeInput) {
-    adminCodeInput.addEventListener('input', function () {
-      formatAdminCodeInput(adminCodeInput);
-    });
-  }
+<script>
+// ===== الثوابت =====
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; // ضع رابط Apps Script هنا
+const TOTAL_SESSIONS  = 36;
+const TOTAL_DAYS      = 18;
+const MAJLIS_START    = '2026-07-04';
+
+// 36 عبارة تشجيعية — تبدأ بإنما الأعمال بالنيات، تختتم بسبحان الله وبحمده
+const MOTIVATIONAL = [
+  { text: 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى', source: 'متفق عليه' },
+  { text: 'طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ', source: 'رواه ابن ماجه' },
+  { text: 'وَقُل رَّبِّ زِدْنِي عِلْمًا', source: 'طه: 114' },
+  { text: 'مَن سَلَكَ طَرِيقًا يَلتَمِسُ فِيهِ عِلمًا سَهَّلَ اللهُ لَهُ بِهِ طَرِيقًا إِلى الجَنَّةِ', source: 'رواه مسلم' },
+  { text: 'يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ', source: 'المجادلة: 11' },
+  { text: 'فَضْلُ الْعَالِمِ عَلَى الْعَابِدِ كَفَضْلِ الْقَمَرِ لَيْلَةَ الْبَدْرِ عَلَى سَائِرِ الْكَوَاكِبِ', source: 'رواه أبو داود' },
+  { text: 'اصبِر وَمَا صَبرُكَ إِلَّا بِاللَّهِ', source: 'النحل: 127' },
+  { text: 'العِلمُ لا يُعطيكَ بَعضَهُ حتى تُعطِيَهُ كُلَّكَ', source: 'الإمام مالك رحمه الله' },
+  { text: 'وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِن حَيْثُ لَا يَحْتَسِبُ', source: 'الطلاق: 2-3' },
+  { text: 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', source: 'الشرح: 6' },
+  { text: 'الصَّبرُ مِفتاحُ الفَرَجِ', source: 'أثر مروي عن ابن مسعود رضي الله عنه' },
+  { text: 'احتسِب أجرَكَ فإن الله لا يُضيعُ أجرَ مَن أحسنَ عملًا', source: 'مستوحى من الكهف: 30' },
+  { text: 'كُن في الدُّنيا كأنَّكَ غَريبٌ أو عابِرُ سَبيل', source: 'رواه البخاري' },
+  { text: 'إِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ', source: 'التوبة: 120' },
+  { text: 'مَن أَخلَصَ للهِ أَربَعينَ يَومًا فَجَّرَ اللهُ يَنابيعَ الحِكمَةِ مِن قَلبِهِ', source: 'أثر عن ابن أبي الدنيا' },
+  { text: 'خَيرُكُم مَن تَعَلَّمَ القُرآنَ وَعَلَّمَهُ', source: 'رواه البخاري' },
+  { text: 'وَيُعَلِّمُهُمُ الْكِتَابَ وَالْحِكْمَةَ وَيُزَكِّيهِمْ', source: 'آل عمران: 164' },
+  { text: 'إِنَّمَا يَخشَى اللَّهَ مِن عِبَادِهِ الْعُلَمَاءُ', source: 'فاطر: 28' },
+  { text: 'تَوَاضَعوا لِمَن تَتَعَلَّمونَ مِنهُ وَلِمَن تُعَلِّمونَهُ', source: 'أثر عمر رضي الله عنه' },
+  { text: 'قَيِّدوا العِلمَ بِالكِتابَةِ', source: 'أثر ابن عباس رضي الله عنهما' },
+  { text: 'وَقَلِيلٌ مِّنْ عِبَادِيَ الشَّكُورُ', source: 'سبأ: 13' },
+  { text: 'مَا مَلَأَ ابنُ آدَمَ وِعاءً شرًّا مِن بَطنِهِ، وَبِحَسبِ ابنِ آدَمَ لُقَيماتٌ يُقِمنَ صُلبَهُ', source: 'رواه الترمذي' },
+  { text: 'أعلمُ الناسِ أشدُّهُم اشتِياقًا إلى ما يَعلَمُ', source: 'حكمة سلف' },
+  { text: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ', source: 'الرعد: 28' },
+  { text: 'كُلُّ ابنِ آدَمَ يَموتُ والعِلمُ باقٍ في صُدورِ الرِّجالِ', source: 'حكمة سلف' },
+  { text: 'مَن أرادَ الدُّنيا فعَلَيهِ بالعِلمِ، ومَن أرادَ الآخِرَةَ فعَلَيهِ بالعِلمِ', source: 'أثر يروى عن الإمام الشافعي' },
+  { text: 'اتَّقِ اللهَ حيثُما كُنتَ، وأَتبِعِ السَّيِّئَةَ الحَسَنَةَ تَمحُها', source: 'رواه الترمذي' },
+  { text: 'لَئِن شَكَرتُمْ لَأَزِيدَنَّكُمْ', source: 'إبراهيم: 7' },
+  { text: 'النِّيَّةُ الصَّالِحَةُ مَع العَمَلِ الصَّالِحِ رِبحُ الدُّنيا والآخِرَةِ', source: 'حكمة سلف' },
+  { text: 'إِنَّ أَكرَمَكُم عِندَ اللَّهِ أَتقَاكُم', source: 'الحجرات: 13' },
+  { text: 'نِعمَتانِ مَغبونٌ فِيهِمَا كَثِيرٌ مِنَ النَّاسِ: الصِّحَّةُ وَالفَرَاغُ', source: 'رواه البخاري' },
+  { text: 'الوَقتُ سَيفٌ؛ فَإِن لَم تَقطَعهُ قَطَعَكَ', source: 'أثر يروى عن الإمام الشافعي' },
+  { text: 'يا أيُّها الَّذينَ آمَنُوا اصبِروا وَصَابِروا وَرَابِطوا وَاتَّقُوا اللَّهَ لَعَلَّكُم تُفلِحونَ', source: 'آل عمران: 200' },
+  { text: 'فَمَن يَعمَل مِثقَالَ ذَرَّةٍ خَيرًا يَرَهُ', source: 'الزلزلة: 7' },
+  { text: 'رَبِّ أَوزِعني أَن أَشكُرَ نِعمَتَكَ الَّتِي أَنعَمتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَن أَعمَلَ صَالِحًا تَرضَاهُ', source: 'الأحقاف: 15' },
+  { text: 'سُبحانَ اللهِ وبِحَمدِهِ، سُبحانَ اللهِ العَظِيمِ', source: 'متفق عليه — أحبُّ الكلامِ إلى اللهِ' }
+];
+
+// ===== تنسيق الرقم الإداري =====
+function formatAdminCodeInput(el) {
+  let d = el.value.replace(/[^0-9]/g, '').substring(0, 8);
+  el.value = d.length > 4 ? d.substring(0,4) + '-' + d.substring(4) : d;
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const inp = document.getElementById('adminCode');
+  if (inp) inp.addEventListener('input', function() { formatAdminCodeInput(inp); });
+  loadWindowInfo();
 });
 
+// ===== بصمة الجهاز =====
 function getDeviceFingerprint() {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    ctx.textBaseline = "top";
-    ctx.font = "14px Arial";
-    ctx.fillText("MajlisAttendance_v1", 2, 2);
-    const raw = navigator.userAgent
-              + screen.width + "x" + screen.height
-              + screen.colorDepth
-              + new Date().getTimezoneOffset()
-              + canvas.toDataURL();
-    return btoa(unescape(encodeURIComponent(raw))).substring(0, 32);
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.textBaseline = 'top'; ctx.font = '14px Arial';
+  ctx.fillText('MajlisAttendance_v1', 2, 2);
+  const raw = navigator.userAgent + screen.width + 'x' + screen.height + screen.colorDepth
+            + new Date().getTimezoneOffset() + canvas.toDataURL();
+  return btoa(unescape(encodeURIComponent(raw))).substring(0, 32);
 }
 
+// ===== جلب حالة النوافذ =====
+let windowData = null;
+function loadWindowInfo() {
+  fetch('/api/window-info')
+    .then(r => r.json())
+    .then(d => {
+      windowData = d;
+      updateSessionBadges(d);
+    })
+    .catch(() => {});
+}
+
+function updateSessionBadges(d) {
+  if (!d) return;
+  const badgeAsr     = document.getElementById('badgeAsr');
+  const badgeMaghrib = document.getElementById('badgeMaghrib');
+  const asrLabel     = document.getElementById('asrTimeLabel');
+  const maghribLabel = document.getElementById('maghribTimeLabel');
+
+  if (d.asrWindowStart) asrLabel.textContent = d.asrWindowStart + ' – ' + d.asrWindowEnd;
+  if (d.maghribWindowStart) maghribLabel.textContent = d.maghribWindowStart + ' – ' + d.maghribWindowEnd;
+
+  badgeAsr.className = 'session-badge';
+  badgeMaghrib.className = 'session-badge';
+
+  if (d.currentSession === 'asr')     badgeAsr.classList.add('active');
+  if (d.currentSession === 'maghrib') badgeMaghrib.classList.add('active');
+}
+
+// ===== حساب أيام المجلس الفعلية (بدون الجمعتين) =====
+function getMajlisDays() {
+  const days = [];
+  const start = new Date('2026-07-04');
+  const end   = new Date('2026-07-23');
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate()+1)) {
+    if (d.getDay() !== 5) { // 5 = الجمعة
+      days.push(d.toISOString().substring(0,10));
+    }
+  }
+  return days; // 18 يوم
+}
+
+// ===== جلب وعرض سجل حضور الشخص =====
+function loadAttendanceRecord(adminCode) {
+  fetch(APPS_SCRIPT_URL + '?action=getAttendanceRecord&adminCode=' + encodeURIComponent(adminCode))
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'ok') renderProgress(data);
+    })
+    .catch(() => {});
+}
+
+function renderProgress(data) {
+  const days = getMajlisDays();
+  const attended = data.attended || 0;
+  const pct = Math.round((attended / TOTAL_SESSIONS) * 100);
+  const map = data.attendedMap || {};
+  const today = new Date().toISOString().substring(0,10);
+
+  // الشريط
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressDone').textContent = attended + ' / ' + TOTAL_SESSIONS + ' جلسة';
+  document.getElementById('progressPct').textContent = pct + '%';
+
+  // النقاط
+  const dotsEl = document.getElementById('progressDots');
+  dotsEl.innerHTML = '';
+  days.forEach((day, idx) => {
+    const hasAsr     = map[day + '_asr'];
+    const hasMaghrib = map[day + '_maghrib'];
+    const isToday    = day === today;
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    if (hasAsr && hasMaghrib) dot.classList.add('done-both');
+    else if (hasAsr)          dot.classList.add('done-asr');
+    else if (hasMaghrib)      dot.classList.add('done-maghrib');
+    if (isToday)              dot.classList.add('today');
+    dot.title = 'يوم ' + (idx+1) + ' | ' + day;
+    dot.textContent = idx + 1;
+    dotsEl.appendChild(dot);
+  });
+
+  // العبارة التشجيعية
+  const quoteIdx = Math.min(attended, TOTAL_SESSIONS) - 1;
+  if (attended > 0 && quoteIdx >= 0 && quoteIdx < MOTIVATIONAL.length) {
+    const q = MOTIVATIONAL[quoteIdx];
+    document.getElementById('progressMotivate').innerHTML =
+      '«' + q.text + '»<br><span style="font-size:11px;color:#888;font-weight:400">' + q.source + '</span>';
+  } else if (attended === 0) {
+    document.getElementById('progressMotivate').textContent = 'ابدأ رحلتك مع سماع صحيح الإمام البخاري...';
+  }
+
+  document.getElementById('progressWrap').style.display = 'block';
+
+  // الشهادة — تظهر فقط عند اكتمال الـ36 جلسة
+  if (data.completedAll) {
+    document.getElementById('certName').textContent = data.name;
+    document.getElementById('certificateBox').classList.add('show');
+  }
+}
+
+// ===== التحضير =====
 function showStatus(type, html) {
   const box = document.getElementById('statusBox');
   box.className = 'status-box show ' + type;
   box.innerHTML = html;
 }
-
-function setLoading(isLoading) {
+function setLoading(v) {
   const btn = document.getElementById('submitBtn');
-  btn.disabled = isLoading;
-  btn.textContent = isLoading ? 'جاري التحقق...' : 'تسجيل الحضور';
+  btn.disabled = v;
+  btn.textContent = v ? 'جاري التحقق...' : 'تسجيل الحضور';
 }
 
 function submitAttendance() {
   const adminCode = document.getElementById('adminCode').value.trim();
-
-  if (!adminCode) {
-    showStatus('err', 'الرجاء إدخال الرقم الإداري');
-    return;
-  }
-
-  if (!navigator.geolocation) {
-    showStatus('err', 'متصفحك لا يدعم تحديد الموقع — جرّب متصفحًا آخر');
-    return;
-  }
+  if (!adminCode) { showStatus('err', 'الرجاء إدخال الرقم الإداري'); return; }
+  if (!navigator.geolocation) { showStatus('err', 'متصفحك لا يدعم تحديد الموقع — جرّب متصفحًا آخر'); return; }
 
   setLoading(true);
   showStatus('wait', 'جاري تحديد موقعك<span class="spinner"></span>');
 
   navigator.geolocation.getCurrentPosition(
-    function (position) {
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-      const deviceId = getDeviceFingerprint();
-
+    function(pos) {
       showStatus('wait', 'جاري إرسال طلب التحضير<span class="spinner"></span>');
-
       fetch('/api/attendance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           adminCode: adminCode,
-          lat: lat,
-          lng: lng,
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
           timestamp: new Date().toISOString(),
-          deviceId: deviceId
+          deviceId: getDeviceFingerprint()
         })
       })
       .then(r => r.json())
-      .then(handleResponse)
-      .catch(function () {
-        showStatus('err', 'تعذّر الاتصال بالسيرفر — تحقق من اتصالك بالإنترنت وحاول مجددًا');
-        setLoading(false);
-      });
+      .then(d => handleResponse(d, adminCode))
+      .catch(() => { showStatus('err', 'تعذّر الاتصال بالسيرفر — تحقق من اتصالك وحاول مجددًا'); setLoading(false); });
     },
-    function (error) {
-      let msg = 'تعذّر تحديد موقعك.';
-      if (error.code === error.PERMISSION_DENIED) {
-        msg = 'يجب السماح بالوصول إلى الموقع (GPS) لتسجيل الحضور. الرجاء تفعيل إذن الموقع من إعدادات المتصفح.';
-      }
-      showStatus('err', msg);
-      setLoading(false);
+    function(err) {
+      let msg = err.code === err.PERMISSION_DENIED
+        ? 'يجب السماح بالوصول إلى الموقع (GPS) لتسجيل الحضور. فعّل إذن الموقع من إعدادات المتصفح.'
+        : 'تعذّر تحديد موقعك.';
+      showStatus('err', msg); setLoading(false);
     },
     { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
   );
 }
 
-function handleResponse(data) {
+function handleResponse(data, adminCode) {
   setLoading(false);
+  const sessionLabel = data.session === 'maghrib' ? 'بعد المغرب' : 'بعد العصر';
+
+  // تحديث الشارة بعد التحضير
+  if (data.session === 'asr')     { document.getElementById('badgeAsr').classList.add('done'); document.getElementById('badgeAsr').classList.remove('active'); }
+  if (data.session === 'maghrib') { document.getElementById('badgeMaghrib').classList.add('done'); document.getElementById('badgeMaghrib').classList.remove('active'); }
 
   switch (data.status) {
     case 'ok':
-      showStatus('ok', '<span class="big-check">✅</span>تم تسجيل حضورك بنجاح يا <strong>' + (data.name || '') + '</strong>');
+      showStatus('ok', '<span class="big-check">✅</span>تم تسجيل حضورك لجلسة <strong>' + sessionLabel + '</strong> يا <strong>' + (data.name||'') + '</strong>');
       document.getElementById('submitBtn').disabled = true;
+      // تحديث شريط التقدم
+      setTimeout(() => loadAttendanceRecord(adminCode), 800);
       break;
     case 'not_found':
-      showStatus('err', '⚠️ الرقم الإداري غير موجود — تأكد من كتابته بشكل صحيح');
-      break;
-    case 'window_closed':
-      showStatus('err', '🕓 التحضير مغلق حاليًا' + (data.detail ? '<br><small>' + data.detail + '</small>' : ''));
-      break;
+      showStatus('err', '⚠️ الرقم الإداري غير موجود — تأكد من كتابته بشكل صحيح'); break;
+    case 'window_closed': {
+      let detail = '🕓 التحضير مغلق حاليًا';
+      if (data.asrWindowStart) detail += '<br><small>نافذة العصر: ' + data.asrWindowStart + ' – ' + data.asrWindowEnd + '</small>';
+      if (data.maghribWindowStart) detail += '<br><small>نافذة المغرب: ' + data.maghribWindowStart + ' – ' + data.maghribWindowEnd + '</small>';
+      showStatus('err', detail); break;
+    }
     case 'no_location':
-      showStatus('err', '📍 تعذّر تحديد موقعك — تأكد من تفعيل GPS وحاول مجددًا');
-      break;
+      showStatus('err', '📍 تعذّر تحديد موقعك — تأكد من تفعيل GPS وحاول مجددًا'); break;
     case 'out_of_range':
-      showStatus('err', '📍 أنت خارج نطاق المسجد' + (data.distance ? ' (' + data.distance + ' متر)' : ''));
-      break;
+      showStatus('err', '📍 أنت خارج نطاق المسجد' + (data.distance ? ' (' + data.distance + ' متر)' : '')); break;
     case 'already_done':
-      showStatus('ok', '✔️ سبق تسجيل حضورك اليوم، بارك الله فيك');
+      showStatus('ok', '✔️ ' + (data.message || 'سبق تسجيل حضورك لهذه الجلسة، بارك الله فيك'));
+      setTimeout(() => loadAttendanceRecord(adminCode), 300);
       break;
     case 'device_conflict':
-      showStatus('err', '⚠️ هذا الجهاز سبق استخدامه لتحضير شخص آخر اليوم.<br><small>كل جهاز يمكنه تحضير رقم إداري واحد فقط في اليوم — إن كان هناك خطأ، راجع الإدارة.</small>');
-      break;
+      showStatus('err', '⚠️ هذا الجهاز سبق استخدامه لتحضير شخص آخر في هذه الجلسة.<br><small>كل جهاز يمكنه تحضير رقم إداري واحد فقط في الجلسة — إن كان هناك خطأ، راجع الإدارة.</small>'); break;
     default:
       showStatus('err', data.message || 'حدث خطأ غير متوقع، حاول مجددًا');
   }
 }
 </script>
-
 </body>
 </html>
