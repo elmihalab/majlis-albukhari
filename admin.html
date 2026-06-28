@@ -150,6 +150,16 @@
     </div>
   </div>
 
+  <div class="section reset-zone">
+    <h2>⚡ اختبار سريع شامل</h2>
+    <p class="override-note" style="margin-top:0;">
+      يجمع كل ما تحتاجه لتجربة التحضير الآن، بصرف النظر عن الوقت أو موقعك الحقيقي: يفتح جلسة العصر فورًا، ويفعّل موقعًا تجريبيًا بموقعك الحالي. بعدها، اذهب لصفحة التحضير وجرّب رقمًا إداريًا حقيقيًا — يجب أن ينجح فورًا.
+    </p>
+    <button class="btn btn-reset-all" onclick="quickTestAsr()">🧪 جهّز الموقع للاختبار الآن (جلسة العصر)</button>
+    <button class="btn btn-reset-all" style="margin-top:8px; background:#8a6d2e;" onclick="quickTestMaghrib()">🧪 جهّز الموقع للاختبار الآن (جلسة المغرب)</button>
+    <div class="override-note" id="quickTestStatus" style="margin-top:10px;"></div>
+  </div>
+
   <div class="section">
     <h2>التحكم اليدوي بالجلستين</h2>
     <div class="btn-row">
@@ -431,6 +441,57 @@ function postAdminAction(payload) {
   return fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ token: adminToken }, payload)) })
     .then(r => r.json());
 }
+
+function quickTest(sessionMode, sessionLabel) {
+  const statusEl = document.getElementById('quickTestStatus');
+  if (!navigator.geolocation) {
+    statusEl.textContent = 'متصفحك لا يدعم تحديد الموقع — لا يمكن إكمال الاختبار السريع.';
+    return;
+  }
+  statusEl.textContent = 'جاري تحديد موقعك...';
+
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      const lat = position.coords.latitude.toFixed(6);
+      const lng = position.coords.longitude.toFixed(6);
+
+      postAdminAction({ action: 'setOverride', override: sessionMode })
+        .then(function (data1) {
+          if (handleAuthError(data1)) return;
+          if (data1.status !== 'ok') {
+            statusEl.textContent = 'فشلت الخطوة الأولى (فتح الجلسة): ' + (data1.message || '');
+            return;
+          }
+          return postAdminAction({
+            action: 'setLocationSettings',
+            testLocationActive: true,
+            testLocationLat: lat,
+            testLocationLng: lng,
+            testLocationLabel: 'موقع اختبار سريع'
+          });
+        })
+        .then(function (data2) {
+          if (!data2) return;
+          if (handleAuthError(data2)) return;
+          if (data2.status === 'ok') {
+            statusEl.textContent = '✅ جاهز! جلسة ' + sessionLabel + ' مفتوحة، وموقعك الحالي مفعَّل كموقع تجريبي. اذهب الآن لصفحة attendance.html وجرّب رقمًا إداريًا حقيقيًا.';
+            showToast('الموقع جاهز للاختبار — جلسة ' + sessionLabel, 'ok');
+            refreshStatus();
+          } else {
+            statusEl.textContent = 'فشلت الخطوة الثانية (الموقع التجريبي): ' + (data2.message || '');
+          }
+        })
+        .catch(function () { statusEl.textContent = 'تعذّر الاتصال بالسيرفر.'; });
+    },
+    function () {
+      statusEl.textContent = 'تعذّر تحديد موقعك — تأكد من تفعيل GPS والسماح للمتصفح بالوصول إليه.';
+    },
+    { enableHighAccuracy: true, timeout: 15000 }
+  );
+}
+
+function quickTestAsr() { quickTest('open_asr', 'العصر'); }
+function quickTestMaghrib() { quickTest('open_maghrib', 'المغرب'); }
 
 function setOverride(mode) {
   postAdminAction({ action: 'setOverride', override: mode })
