@@ -447,7 +447,7 @@
           return;
         }
 
-        textEl.textContent = data.label || '';
+        textEl.innerHTML = data.label || '';
 
         if (data.windowOpen) {
           linkEl.className = 'attendance-btn-active';
