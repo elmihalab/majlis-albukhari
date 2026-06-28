@@ -374,7 +374,7 @@ function renderStatus(data) {
   const banner = document.getElementById('notMajlisDayBanner');
   if (data.isMajlisDay === false) {
     banner.style.display = 'block';
-    banner.textContent = '⚠️ ' + (data.reason || 'اليوم ليس من ضمن أيام المجلس');
+    banner.textContent = '⚠️ ' + (data.reason || 'اليوم ليس من ضمن أيام المجلس').replace('<br>', ' ');
   } else {
     banner.style.display = 'none';
   }
@@ -389,14 +389,14 @@ function renderStatus(data) {
   asrPill.className = 'pill ' + (data.asrWindowOpen ? 'open' : 'closed');
   document.getElementById('asrTimesLine').textContent = data.asrWindowStart
     ? ('النافذة: من ' + data.asrWindowStart + ' إلى ' + data.asrWindowEnd + (data.asrExtraMinutes ? ' (+' + data.asrExtraMinutes + ' د)' : ''))
-    : (data.reason || '');
+    : (data.reason || '').replace('<br>', ' ');
 
   const maghribPill = document.getElementById('maghribPill');
   maghribPill.textContent = data.maghribWindowOpen ? 'مفتوحة الآن' : 'مغلقة الآن';
   maghribPill.className = 'pill ' + (data.maghribWindowOpen ? 'open' : 'closed');
   document.getElementById('maghribTimesLine').textContent = data.maghribWindowStart
     ? ('النافذة: من ' + data.maghribWindowStart + ' إلى ' + data.maghribWindowEnd + (data.maghribExtraMinutes ? ' (+' + data.maghribExtraMinutes + ' د)' : ''))
-    : (data.reason || '');
+    : (data.reason || '').replace('<br>', ' ');
 
   document.getElementById('asrCount').textContent = data.todayCountAsr != null ? data.todayCountAsr : '—';
   document.getElementById('maghribCount').textContent = data.todayCountMaghrib != null ? data.todayCountMaghrib : '—';
