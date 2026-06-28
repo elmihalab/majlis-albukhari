@@ -8,28 +8,15 @@
 <meta property="og:description" content="سماع صحيح الإمام البخاري — جامع عبدالله بن عباس، حلب">
 <meta property="og:image" content="https://majlis-albukhari.vercel.app/header.jpg">
 <meta property="og:url" content="https://majlis-albukhari.vercel.app/admin.html">
-<meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <style>
-  @font-face {
-    font-family: 'Qamra';
-    src: url('fonts/ITFQOMRAARABIC-REGULAR.TTF') format('truetype');
-    font-weight: 400;
-  }
-  @font-face {
-    font-family: 'Qamra';
-    src: url('fonts/ITFQOMRAARABIC-BOLD.TTF') format('truetype');
-    font-weight: 700;
-  }
-  @font-face {
-    font-family: 'Qamra';
-    src: url('fonts/ITFQOMRAARABIC-BLACK.TTF') format('truetype');
-    font-weight: 900;
-  }
+  @font-face { font-family: 'Qamra'; src: url('fonts/ITFQOMRAARABIC-REGULAR.TTF') format('truetype'); font-weight: 400; }
+  @font-face { font-family: 'Qamra'; src: url('fonts/ITFQOMRAARABIC-BOLD.TTF') format('truetype'); font-weight: 700; }
+  @font-face { font-family: 'Qamra'; src: url('fonts/ITFQOMRAARABIC-BLACK.TTF') format('truetype'); font-weight: 900; }
 
   :root {
     --green-dark: #1a3a2a;
@@ -40,107 +27,50 @@
     --error: #8a2e2e;
     --ok: #1a6b3a;
     --line: #e3ded0;
+    --maghrib: #8a6d2e;
   }
 
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--cream);
-    font-family: 'Qamra', 'Tahoma', sans-serif;
-    color: var(--ink);
-    min-height: 100vh;
-  }
+  body { margin: 0; background: var(--cream); font-family: 'Qamra', 'Tahoma', sans-serif; color: var(--ink); min-height: 100vh; }
 
-  /* شاشة تسجيل الدخول */
-  #loginScreen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(160deg, var(--green-dark), var(--green-mid));
-    padding: 20px;
-  }
-  .login-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 32px 26px;
-    width: 100%;
-    max-width: 380px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    text-align: center;
-  }
-  .login-card h1 {
-    font-size: 19px;
-    color: var(--green-dark);
-    margin: 0 0 4px;
-  }
+  #loginScreen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, var(--green-dark), var(--green-mid)); padding: 20px; }
+  .login-card { background: #fff; border-radius: 16px; padding: 32px 26px; width: 100%; max-width: 380px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; }
+  .login-card h1 { font-size: 19px; color: var(--green-dark); margin: 0 0 4px; }
   .login-card p { color: #897; font-size: 13px; margin: 0 0 20px; }
-  .login-card input {
-    width: 100%;
-    padding: 13px 14px;
-    border: 2px solid var(--line);
-    border-radius: 9px;
-    font-size: 16px;
-    font-family: inherit;
-    margin-bottom: 12px;
-  }
+  .login-card input { width: 100%; padding: 13px 14px; border: 2px solid var(--line); border-radius: 9px; font-size: 16px; font-family: inherit; margin-bottom: 12px; }
   .login-card input:focus { outline: none; border-color: var(--green-mid); }
   .err-msg { color: var(--error); font-size: 13px; margin-top: 6px; display: none; }
 
-  /* لوحة التحكم */
-  #dashboard { display: none; max-width: 720px; margin: 0 auto; padding: 22px 16px 60px; }
+  #dashboard { display: none; max-width: 760px; margin: 0 auto; padding: 22px 16px 60px; }
 
-  header.top {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px;
-  }
+  header.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   header.top h1 { font-size: 18px; color: var(--green-dark); margin: 0; }
   .logout-link { font-size: 13px; color: #a55; cursor: pointer; text-decoration: underline; }
 
-  .section {
-    background: #fff;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-  }
-  .section h2 {
-    font-size: 15px;
-    color: var(--green-dark);
-    margin: 0 0 14px;
-    border-bottom: 2px solid var(--line);
-    padding-bottom: 8px;
-  }
+  .section { background: #fff; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .section h2 { font-size: 15px; color: var(--green-dark); margin: 0 0 14px; border-bottom: 2px solid var(--line); padding-bottom: 8px; }
 
-  .status-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-  .pill {
-    display: inline-block;
-    padding: 5px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 700;
-  }
+  .session-card { border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1.5px solid var(--line); }
+  .session-card.asr { border-color: #b9ddc7; background: #f4faf6; }
+  .session-card.maghrib { border-color: #ecd9ad; background: #fffaf0; }
+  .session-card h3 { font-size: 13.5px; margin: 0 0 8px; display:flex; align-items:center; gap:8px; }
+  .session-card.asr h3 { color: var(--ok); }
+  .session-card.maghrib h3 { color: var(--maghrib); }
+
+  .status-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .pill { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
   .pill.open { background: #e7f3ec; color: var(--ok); }
   .pill.closed { background: #fbeaea; color: var(--error); }
-  .meta-line { font-size: 13px; color: #776; margin-bottom: 4px; }
-  .count-num { font-size: 30px; font-weight: 900; color: var(--green-dark); }
-  .count-label { font-size: 13px; color: #887; }
+  .meta-line { font-size: 12.5px; color: #776; margin-bottom: 4px; line-height: 1.6; }
+  .count-num { font-size: 26px; font-weight: 900; color: var(--green-dark); }
+  .count-label { font-size: 12.5px; color: #887; }
 
-  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-  .btn {
-    flex: 1;
-    min-width: 100px;
-    padding: 11px 10px;
-    border: none;
-    border-radius: 9px;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 13.5px;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
-  }
-  .btn:active { transform: scale(0.97); }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .not-majlis-day-banner { background: #fdecea; border: 1.5px solid #e3a8a0; border-radius: 9px; padding: 10px 14px; font-size: 13px; color: #8a2e2e; margin-bottom: 12px; line-height: 1.7; text-align: center; font-weight: 700; }
+
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .btn { flex: 1; min-width: 90px; padding: 10px 8px; border: none; border-radius: 9px; font-family: inherit; font-weight: 700; font-size: 13px; cursor: pointer; transition: opacity .15s, transform .1s; }
+  .btn:active { transform: scale(.97); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
   .btn-open { background: var(--ok); color: #fff; }
   .btn-close { background: var(--error); color: #fff; }
   .btn-auto { background: #6b6450; color: #fff; }
@@ -149,202 +79,152 @@
   .btn-danger-outline { background: #fff; color: var(--error); border: 2px solid var(--error); }
 
   .field-row { display: flex; gap: 8px; margin-top: 10px; }
-  .field-row input {
-    flex: 1;
-    padding: 10px 12px;
-    border: 2px solid var(--line);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 14px;
-  }
-  .field-row input:focus { outline: none; border-color: var(--green-mid); }
+  .field-row input, .field-row select { flex: 1; padding: 10px 12px; border: 2px solid var(--line); border-radius: 8px; font-family: inherit; font-size: 14px; }
+  .field-row input:focus, .field-row select:focus { outline: none; border-color: var(--green-mid); }
 
   .two-col { display: flex; gap: 10px; }
   .two-col > div { flex: 1; }
   .two-col label { display: block; font-size: 12px; color: #887; margin-bottom: 4px; }
 
-  .toast {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-    background: var(--ink); color: #fff; padding: 12px 22px; border-radius: 30px;
-    font-size: 13.5px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    opacity: 0; transition: opacity 0.3s, bottom 0.3s; pointer-events: none;
-    max-width: 90%; text-align: center; z-index: 999;
-  }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 12px 22px; border-radius: 30px; font-size: 13.5px; box-shadow: 0 8px 24px rgba(0,0,0,.3); opacity: 0; transition: opacity .3s, bottom .3s; pointer-events: none; max-width: 90%; text-align: center; z-index: 999; }
   .toast.show { opacity: 1; bottom: 36px; }
   .toast.ok { background: var(--ok); }
   .toast.err { background: var(--error); }
 
-  .override-note {
-    font-size: 12px; color: #997; margin-top: 8px; line-height: 1.6;
-  }
+  .override-note { font-size: 11.5px; color: #997; margin-top: 8px; line-height: 1.6; }
 
-  .not-majlis-day-banner {
-    background: #fdecea;
-    border: 1.5px solid #e3a8a0;
-    border-radius: 9px;
-    padding: 10px 14px;
-    font-size: 13px;
-    color: #8a2e2e;
-    margin-bottom: 12px;
-    line-height: 1.7;
-    text-align: center;
-    font-weight: 700;
-  }
-
-  .danger-zone {
-    border: 2px dashed #e0b0b0;
-    background: #fff8f8;
-  }
+  .danger-zone { border: 2px dashed #e0b0b0; background: #fff8f8; }
   .danger-zone h2 { color: var(--error); border-color: #f0c4c4; }
 
-  .reset-zone {
-    border: 2px double #8a6d2e;
-    background: #fffaf0;
-  }
+  .reset-zone { border: 2px double #8a6d2e; background: #fffaf0; }
   .reset-zone h2 { color: #8a6d2e; border-color: #ecd9ad; }
-  .btn-reset-all {
-    width: 100%;
-    margin-top: 10px;
-    padding: 13px;
-    border: none;
-    border-radius: 9px;
-    background: #8a6d2e;
-    color: #fff;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 14.5px;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
-  }
-  .btn-reset-all:active { transform: scale(0.98); }
+  .btn-reset-all { width: 100%; margin-top: 10px; padding: 13px; border: none; border-radius: 9px; background: #8a6d2e; color: #fff; font-family: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }
+  .btn-reset-all:active { transform: scale(.98); }
+
+  table.attlog { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.attlog th, table.attlog td { padding: 8px; border: 1px solid #ddd; text-align: center; }
+  table.attlog th { background: var(--green-dark); color: #fff; }
+  .session-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+  .session-tag.asr { background: #e7f3ec; color: var(--ok); }
+  .session-tag.maghrib { background: #fdf2dc; color: var(--maghrib); }
 </style>
 </head>
 <body>
 
-<!-- ===== شاشة تسجيل الدخول ===== -->
 <div id="loginScreen">
   <div class="login-card">
     <h1>لوحة إدارة المجلس الحديثي</h1>
     <p>الرجاء إدخال كلمة المرور للوصول إلى لوحة التحكم</p>
-    <input type="password" id="passwordInput" placeholder="كلمة المرور" autocomplete="off"
-           onkeydown="if(event.key==='Enter') login()">
+    <input type="password" id="passwordInput" placeholder="كلمة المرور" autocomplete="off" onkeydown="if(event.key==='Enter') login()">
     <button class="btn btn-primary" style="width:100%" onclick="login()">دخول</button>
     <div class="err-msg" id="loginErr">كلمة المرور غير صحيحة</div>
   </div>
 </div>
 
-<!-- ===== لوحة التحكم ===== -->
 <div id="dashboard">
   <header class="top">
-    <h1>لوحة إدارة التحضير</h1>
+    <h1>لوحة إدارة التحضير — جلستان يوميًا</h1>
     <span class="logout-link" onclick="logout()">تسجيل الخروج</span>
   </header>
 
-  <!-- حالة النافذة -->
   <div class="section">
-    <h2>حالة نافذة التحضير الآن</h2>
+    <h2>حالة جلستي التحضير الآن</h2>
     <div class="not-majlis-day-banner" id="notMajlisDayBanner" style="display:none;"></div>
-    <div class="status-row">
-      <span class="pill" id="windowPill">...</span>
-      <span class="meta-line" id="windowReason"></span>
+    <div class="meta-line" id="majlisRangeLine" style="margin-bottom:10px;"></div>
+
+    <div class="session-card asr">
+      <h3>🕓 جلسة العصر <span class="pill" id="asrPill" style="margin-right:auto;">...</span></h3>
+      <div class="meta-line" id="asrTimesLine"></div>
+      <div class="meta-line">حضروا في جلسة العصر اليوم: <strong id="asrCount">—</strong></div>
     </div>
-    <div class="meta-line" id="windowTimes"></div>
-    <div class="meta-line" id="asrLine"></div>
-    <div class="meta-line" id="majlisRangeLine" style="margin-top:6px; font-size:11.5px; color:#aaa;"></div>
-    <div style="margin-top:14px; display:flex; align-items:center; gap:14px;">
-      <div><span class="count-num" id="todayCount">—</span> <span class="count-label">حضروا اليوم</span></div>
+
+    <div class="session-card maghrib">
+      <h3>🌆 جلسة المغرب <span class="pill" id="maghribPill" style="margin-right:auto;">...</span></h3>
+      <div class="meta-line" id="maghribTimesLine"></div>
+      <div class="meta-line">حضروا في جلسة المغرب اليوم: <strong id="maghribCount">—</strong></div>
+    </div>
+
+    <div style="margin-top:10px; display:flex; align-items:center; gap:14px;">
+      <div><span class="count-num" id="todayCount">—</span> <span class="count-label">إجمالي التحضيرات اليوم</span></div>
       <button class="btn btn-outline" style="flex:0 0 auto; min-width:auto; padding:8px 16px;" onclick="refreshStatus()">تحديث ↻</button>
     </div>
   </div>
 
-  <!-- التحكم اليدوي السريع -->
   <div class="section">
-    <h2>التحكم اليدوي بالنافذة</h2>
+    <h2>التحكم اليدوي بالجلستين معًا</h2>
     <div class="btn-row">
-      <button class="btn btn-open" onclick="setOverride('open')">فتح فوري</button>
-      <button class="btn btn-close" onclick="setOverride('closed')">إغلاق فوري</button>
+      <button class="btn btn-open" onclick="setOverride('open')">فتح فوري (الجلستين)</button>
+      <button class="btn btn-close" onclick="setOverride('closed')">إغلاق فوري (الجلستين)</button>
       <button class="btn btn-auto" onclick="setOverride('auto')">وضع تلقائي</button>
     </div>
-
-    <div class="field-row">
-      <input type="number" id="extendMinutes" placeholder="عدد الدقائق (مثال: 15 أو -10)">
-      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="extendWindow()">تمديد/تقصير</button>
-    </div>
-    <div class="override-note">النافذة الافتراضية: من أذان العصر إلى أذان العشاء. تمديد بقيمة موجبة يؤخّر وقت الإغلاق بعد العشاء، وبقيمة سالبة يُقصّره قبله.</div>
+    <div class="override-note">"فتح فوري" يفتح كلتا الجلستين بصرف النظر عن الوقت أو كون اليوم جمعة أو خارج فترة المجلس — تجاوز يدوي مقصود للحالات الاستثنائية.</div>
   </div>
 
-  <!-- إعدادات الموقع الجغرافي والمسافة -->
+  <div class="section">
+    <h2>تمديد/تقصير كل جلسة بشكل منفصل</h2>
+
+    <label style="font-size:13px; font-weight:700; display:block; margin-bottom:6px;">جلسة العصر (تمتد حتى قُبيل المغرب تلقائيًا)</label>
+    <div class="field-row">
+      <input type="number" id="asrExtend" placeholder="دقائق إضافية للعصر (مثال: 10 أو -5)">
+      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="setExtraMinutes('asr')">حفظ</button>
+    </div>
+
+    <label style="font-size:13px; font-weight:700; display:block; margin:14px 0 6px;">جلسة المغرب (تمتد حتى العشاء تلقائيًا)</label>
+    <div class="field-row">
+      <input type="number" id="maghribExtend" placeholder="دقائق إضافية للمغرب (مثال: 10 أو -5)">
+      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="setExtraMinutes('maghrib')">حفظ</button>
+    </div>
+    <div class="override-note">قيمة موجبة تؤخّر إغلاق الجلسة، وسالبة تُقصّرها. القيمة الحالية تظهر في حقل كل جلسة عند التحديث.</div>
+  </div>
+
+  <div class="section">
+    <h2>ضبط نافذة بوقت محدد يدويًا (تشمل الجلستين معًا)</h2>
+    <div class="two-col">
+      <div><label>وقت البداية</label><input type="time" id="manualStart"></div>
+      <div><label>وقت النهاية</label><input type="time" id="manualEnd"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="setManualWindow()">تطبيق النافذة اليدوية</button>
+      <button class="btn btn-outline" onclick="clearManualWindow()">مسح والعودة للحساب التلقائي</button>
+    </div>
+  </div>
+
   <div class="section">
     <h2>الموقع الجغرافي ومسافة القبول</h2>
-
     <div class="meta-line" id="activeLocationLine" style="margin-bottom:10px;">...</div>
 
     <label style="font-size:13px; font-weight:700; display:block; margin-bottom:6px;">أقصى مسافة مسموحة (بالمتر)</label>
     <div class="field-row">
       <input type="number" id="maxDistanceInput" placeholder="مثال: 100">
-      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="saveMaxDistance()">حفظ المسافة</button>
+      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="saveMaxDistance()">حفظ</button>
     </div>
 
-    <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">موقع تجريبي (للاختبار بعيدًا عن الجامع)</label>
+    <label style="font-size:13px; font-weight:700; display:block; margin:14px 0 6px;">موقع تجريبي (للاختبار بعيدًا عن الجامع)</label>
     <div class="two-col">
-      <div>
-        <label>خط العرض (Lat)</label>
-        <input type="text" id="testLat" placeholder="مثال: 36.123456">
-      </div>
-      <div>
-        <label>خط الطول (Lng)</label>
-        <input type="text" id="testLng" placeholder="مثال: 37.123456">
-      </div>
+      <div><label>خط العرض (Lat)</label><input type="text" id="testLat" placeholder="36.123456"></div>
+      <div><label>خط الطول (Lng)</label><input type="text" id="testLng" placeholder="37.123456"></div>
     </div>
     <div class="field-row">
       <input type="text" id="testLabel" placeholder="اسم الموقع (مثال: مكان العمل)">
-      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="getCurrentLocationForTest()">📍 موقعي الآن</button>
+      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="getCurrentLocationForTest()">📍 موقعي الآن</button>
     </div>
     <div class="btn-row">
       <button class="btn btn-open" onclick="setTestLocation(true)">تفعيل الموقع التجريبي</button>
       <button class="btn btn-close" onclick="setTestLocation(false)">العودة لموقع المسجد</button>
     </div>
-    <div class="override-note">عند تفعيل الموقع التجريبي، يُحسب أذان العصر والمسافة من هذا الموقع بدل موقع المسجد الحقيقي — لجميع الطلاب أيضًا. تذكّر إيقافه بعد الاختبار.</div>
+    <div class="override-note">تفعيل الموقع التجريبي يؤثر على كل من يحاول التحضير في تلك اللحظة، لا فقط الإداري. تذكّر إيقافه بعد الاختبار.</div>
   </div>
 
-  <!-- نافذة يدوية بوقتين محددين -->
   <div class="section">
-    <h2>ضبط نافذة بوقت محدد يدويًا (اختياري)</h2>
-    <div class="two-col">
-      <div>
-        <label>وقت البداية</label>
-        <input type="time" id="manualStart">
-      </div>
-      <div>
-        <label>وقت النهاية</label>
-        <input type="time" id="manualEnd">
-      </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="setManualWindow()">تطبيق النافذة اليدوية</button>
-      <button class="btn btn-outline" onclick="clearManualWindow()">مسح والعودة لأذان العصر</button>
-    </div>
-    <div class="override-note">هذا يلغي الاعتماد على أذان العصر التلقائي ويستخدم الوقتين المحددين بدلاً منه، ضمن وضع "تلقائي".</div>
-  </div>
-
-  <!-- سجل الحضور اليومي + تصدير Excel -->
-  <div class="section">
-    <h2>📋 سجل الحضور اليومي</h2>
+    <h2>📋 سجل الحضور اليومي (الجلستين معًا)</h2>
     <div style="display:flex; gap:10px; align-items:center; margin-bottom:15px;">
-      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="loadTodayList()">🔄 تحديث القائمة</button>
-      <button class="btn btn-outline" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="exportToExcel()">📥 تصدير Excel</button>
+      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="loadTodayList()">🔄 تحديث القائمة</button>
+      <button class="btn btn-outline" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="exportToExcel()">📥 تصدير Excel</button>
     </div>
     <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse; font-size:13px;" id="attendanceTable">
+      <table class="attlog" id="attendanceTable">
         <thead>
-          <tr style="background:#1a3a2a; color:#fff;">
-            <th style="padding:10px;">الرقم الإداري</th>
-            <th style="padding:10px;">الاسم</th>
-            <th style="padding:10px;">الوقت</th>
-            <th style="padding:10px;">المسافة (م)</th>
-            <th style="padding:10px;">بصمة الجهاز</th>
-            <th style="padding:10px;">نوع التسجيل</th>
-          </tr>
+          <tr><th>الرقم الإداري</th><th>الاسم</th><th>الوقت</th><th>المسافة (م)</th><th>الجلسة</th><th>النوع</th></tr>
         </thead>
         <tbody id="attendanceBody">
           <tr><td colspan="6" style="padding:20px; text-align:center; color:#999;">اضغط "تحديث القائمة" للعرض</td></tr>
@@ -353,37 +233,43 @@
     </div>
   </div>
 
-  <!-- صلاحيات التجاوز -->
   <div class="section danger-zone">
     <h2>صلاحيات التجاوز (حالات استثنائية)</h2>
 
-    <label style="font-size:13px; font-weight:700; display:block; margin-bottom:6px;">تحضير يدوي لشخص محدد</label>
+    <label style="font-size:13px; font-weight:700; display:block; margin-bottom:6px;">تحضير يدوي لشخص محدد (لمن لا جهاز معه)</label>
     <div class="field-row">
       <input type="text" id="forceCode" placeholder="الرقم الإداري (مثال: 0001-1234)" maxlength="9">
-      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="forceAttend()">تحضير الآن</button>
+      <select id="forceSession" style="flex:0 0 auto; max-width:120px;">
+        <option value="asr">جلسة العصر</option>
+        <option value="maghrib">جلسة المغرب</option>
+      </select>
+      <button class="btn btn-primary" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="forceAttend()">تحضير الآن</button>
     </div>
-    <div class="override-note">يتجاوز شرط الموقع والوقت والتكرار والجهاز بالكامل — يُستخدم لحالات استثنائية فقط. لا حاجة لكتابة الشرطة (-)، تُضاف تلقائيًا، ويمكن اللصق بالشرطة أو بدونها.</div>
+    <div class="override-note">يتجاوز شرط الموقع والوقت والجهاز بالكامل لجلسة واحدة محدَّدة. لا حاجة لكتابة الشرطة (-)، تُضاف تلقائيًا.</div>
 
-    <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">رفع حظر تكرار الجهاز (لليوم)</label>
+    <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">رفع حظر تكرار الجهاز (لليوم، كل الجلسات)</label>
     <div class="field-row">
       <input type="text" id="unbindDeviceId" placeholder="بصمة الجهاز (deviceId)">
-      <button class="btn btn-danger-outline" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="unbindDevice()">رفع الحظر</button>
+      <button class="btn btn-danger-outline" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="unbindDevice()">رفع الحظر</button>
     </div>
-    <div class="override-note">يُستخدم إن علق جهازان شرعيان بالخطأ بنفس البصمة. بصمة الجهاز تظهر برسالة الرفض للطالب أو يمكن سؤاله عنها.</div>
 
-    <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">حذف تحضير اليوم لشخص (لتسجيله من جديد)</label>
+    <label style="font-size:13px; font-weight:700; display:block; margin:16px 0 6px;">حذف تحضير اليوم لشخص</label>
     <div class="field-row">
       <input type="text" id="removeCode" placeholder="الرقم الإداري" maxlength="9">
-      <button class="btn btn-danger-outline" style="flex:0 0 auto; min-width:auto; padding:10px 18px;" onclick="removeToday()">حذف تحضيره اليوم</button>
+      <select id="removeSession" style="flex:0 0 auto; max-width:140px;">
+        <option value="">كل جلسات اليوم</option>
+        <option value="asr">جلسة العصر فقط</option>
+        <option value="maghrib">جلسة المغرب فقط</option>
+      </select>
+      <button class="btn btn-danger-outline" style="flex:0 0 auto; min-width:auto; padding:10px 16px;" onclick="removeToday()">حذف</button>
     </div>
     <div class="override-note">لا حاجة لكتابة الشرطة (-)، تُضاف تلقائيًا، ويمكن اللصق بالشرطة أو بدونها.</div>
   </div>
 
-  <!-- إعادة الضبط الشامل -->
   <div class="section reset-zone">
     <h2>↺ إعادة ضبط جميع الإعدادات</h2>
     <p class="override-note" style="margin-top:0;">
-      يُرجع دفعة واحدة كل ما يلي لوضعه الطبيعي الافتراضي: وضع النافذة (تلقائي)، التمديد (صفر)، أي نافذة وقت يدوية محددة (تُمسح)، مسافة القبول (100م)، والموقع التجريبي (يُعطَّل ويُعاد لموقع المسجد الحقيقي). يُستخدم بعد جلسات الاختبار لضمان عدم نسيان أي قيمة تجريبية متبقية.
+      يُرجع دفعة واحدة: وضع النافذة (تلقائي)، تمديد العصر والمغرب (صفر لكل منهما)، أي نافذة يدوية (تُمسح)، مسافة القبول (100م)، والموقع التجريبي (يُعطَّل). لا يحذف أي سجل حضور.
     </p>
     <button class="btn btn-reset-all" onclick="confirmResetAll()">إعادة ضبط كل الإعدادات للوضع الطبيعي</button>
   </div>
@@ -395,15 +281,8 @@
 <script>
 let adminToken = sessionStorage.getItem('admin_token') || null;
 let statusInterval = null;
+let lastLoadedAttendanceList = [];
 
-// تنسيق الرقم الإداري تلقائيًا بالشكل 0001-1234 — نفس منطق attendance.html،
-// يتعامل بأمان مع اللصق حتى لو كان النص الملصوق يحوي شرطة بالفعل.
-// تحويل تاريخ من صيغة YYYY-MM-DD إلى صيغة عربية مقروءة D/M/YYYY،
-// مع تثبيت اتجاه العرض بعلامة LRM لمنع المتصفح من إعادة ترتيب الأرقام
-// بصرياً عند دمجها وسط نص عربي (نفس السبب الذي يجعل "2026-07-04" يظهر
-// معكوساً كـ "04-07-2026" داخل جملة عربية بدون هذا التثبيت).
-// صيغة "04 - 07 - 2026" — الوحيدة المؤكدة بالتجربة الفعلية على الموقع
-// (انظر التعليق المفصَّل في AppsScript_v9.gs لشرح سبب فشل الصيغ الأخرى).
 function formatArabicDate(isoDate) {
   const parts = String(isoDate).split('-');
   if (parts.length !== 3) return isoDate;
@@ -414,24 +293,15 @@ function formatArabicDate(isoDate) {
 }
 
 function formatAdminCodeInput(inputEl) {
-  let digitsOnly = inputEl.value.replace(/[^0-9]/g, '');
-  digitsOnly = digitsOnly.substring(0, 8);
-  let formatted = digitsOnly;
-  if (digitsOnly.length > 4) {
-    formatted = digitsOnly.substring(0, 4) + '-' + digitsOnly.substring(4);
-  }
-  inputEl.value = formatted;
+  let digitsOnly = inputEl.value.replace(/[^0-9]/g, '').substring(0, 8);
+  inputEl.value = digitsOnly.length > 4 ? digitsOnly.substring(0,4) + '-' + digitsOnly.substring(4) : digitsOnly;
 }
 
 window.addEventListener('DOMContentLoaded', function () {
-  if (adminToken) {
-    showDashboard();
-  }
+  if (adminToken) showDashboard();
   ['forceCode', 'removeCode'].forEach(function (id) {
     const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('input', function () { formatAdminCodeInput(el); });
-    }
+    if (el) el.addEventListener('input', function () { formatAdminCodeInput(el); });
   });
 });
 
@@ -445,26 +315,21 @@ function showToast(message, type) {
 function login() {
   const password = document.getElementById('passwordInput').value;
   document.getElementById('loginErr').style.display = 'none';
-
-  fetch('/api/admin-auth', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password: password })
-  })
-  .then(r => r.json())
-  .then(function (data) {
-    if (data.status === 'ok' && data.token) {
-      adminToken = data.token;
-      sessionStorage.setItem('admin_token', adminToken);
-      showDashboard();
-    } else {
+  fetch('/api/admin-auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: password }) })
+    .then(r => r.json())
+    .then(function (data) {
+      if (data.status === 'ok' && data.token) {
+        adminToken = data.token;
+        sessionStorage.setItem('admin_token', adminToken);
+        showDashboard();
+      } else {
+        document.getElementById('loginErr').style.display = 'block';
+      }
+    })
+    .catch(function () {
+      document.getElementById('loginErr').textContent = 'تعذّر الاتصال بالسيرفر';
       document.getElementById('loginErr').style.display = 'block';
-    }
-  })
-  .catch(function () {
-    document.getElementById('loginErr').textContent = 'تعذّر الاتصال بالسيرفر';
-    document.getElementById('loginErr').style.display = 'block';
-  });
+    });
 }
 
 function logout() {
@@ -499,15 +364,10 @@ function refreshStatus() {
     .then(r => r.json())
     .then(function (data) {
       if (handleAuthError(data)) return;
-      if (data.status !== 'ok') {
-        showToast(data.message || 'خطأ في جلب الحالة', 'err');
-        return;
-      }
+      if (data.status !== 'ok') { showToast(data.message || 'خطأ في جلب الحالة', 'err'); return; }
       renderStatus(data);
     })
-    .catch(function () {
-      showToast('تعذّر تحديث الحالة', 'err');
-    });
+    .catch(function () { showToast('تعذّر تحديث الحالة', 'err'); });
 }
 
 function renderStatus(data) {
@@ -519,94 +379,81 @@ function renderStatus(data) {
     banner.style.display = 'none';
   }
 
-  const pill = document.getElementById('windowPill');
-  pill.textContent = data.windowOpen ? 'مفتوحة الآن' : 'مغلقة الآن';
-  pill.className = 'pill ' + (data.windowOpen ? 'open' : 'closed');
-
-  document.getElementById('windowReason').textContent = data.reason || '';
-
-  let timesText = '';
-  if (data.windowStart && data.windowEnd) {
-    timesText = 'النافذة: من ' + data.windowStart + ' إلى ' + data.windowEnd;
-  }
-  document.getElementById('windowTimes').textContent = timesText;
-
-  let asrIshaText = '';
-  if (data.asrTime) {
-    asrIshaText = 'العصر: ' + data.asrTime + (data.ishaTime ? ' — العشاء: ' + data.ishaTime : '');
-    if (data.extraMinutes) asrIshaText += ' (+' + data.extraMinutes + ' دقيقة تمديد)';
-  }
-  document.getElementById('asrLine').textContent = asrIshaText;
-
   if (data.majlisStartDate && data.majlisEndDate) {
     document.getElementById('majlisRangeLine').textContent =
       'فترة المجلس المسجَّلة في النظام: من ' + formatArabicDate(data.majlisStartDate) + ' إلى ' + formatArabicDate(data.majlisEndDate) + ' (عدا الجمعة)';
   }
 
-  document.getElementById('todayCount').textContent = data.todayCount;
+  const asrPill = document.getElementById('asrPill');
+  asrPill.textContent = data.asrWindowOpen ? 'مفتوحة الآن' : 'مغلقة الآن';
+  asrPill.className = 'pill ' + (data.asrWindowOpen ? 'open' : 'closed');
+  document.getElementById('asrTimesLine').textContent = data.asrWindowStart
+    ? ('النافذة: من ' + data.asrWindowStart + ' إلى ' + data.asrWindowEnd + (data.asrExtraMinutes ? ' (+' + data.asrExtraMinutes + ' د)' : ''))
+    : (data.reason || '');
+
+  const maghribPill = document.getElementById('maghribPill');
+  maghribPill.textContent = data.maghribWindowOpen ? 'مفتوحة الآن' : 'مغلقة الآن';
+  maghribPill.className = 'pill ' + (data.maghribWindowOpen ? 'open' : 'closed');
+  document.getElementById('maghribTimesLine').textContent = data.maghribWindowStart
+    ? ('النافذة: من ' + data.maghribWindowStart + ' إلى ' + data.maghribWindowEnd + (data.maghribExtraMinutes ? ' (+' + data.maghribExtraMinutes + ' د)' : ''))
+    : (data.reason || '');
+
+  document.getElementById('asrCount').textContent = data.todayCountAsr != null ? data.todayCountAsr : '—';
+  document.getElementById('maghribCount').textContent = data.todayCountMaghrib != null ? data.todayCountMaghrib : '—';
+  document.getElementById('todayCount').textContent = data.todayCount != null ? data.todayCount : '—';
 
   document.getElementById('manualStart').value = data.manualWindowStart || '';
   document.getElementById('manualEnd').value = data.manualWindowEnd || '';
 
-  // معلومات الموقع والمسافة
+  if (document.activeElement.id !== 'asrExtend') {
+    document.getElementById('asrExtend').value = data.asrExtraMinutes || '';
+  }
+  if (document.activeElement.id !== 'maghribExtend') {
+    document.getElementById('maghribExtend').value = data.maghribExtraMinutes || '';
+  }
+
   document.getElementById('maxDistanceInput').value = data.maxDistanceMeters || '';
   const locLine = document.getElementById('activeLocationLine');
   if (data.testLocationActive) {
-    locLine.innerHTML = '🧪 الموقع النشط الآن: <strong>' + (data.testLocationLabel || 'موقع تجريبي') + '</strong> (تجريبي — ليس موقع المسجد)';
+    locLine.innerHTML = '🧪 الموقع النشط الآن: <strong>' + (data.testLocationLabel || 'موقع تجريبي') + '</strong> (تجريبي)';
     locLine.style.color = '#a55';
   } else {
     locLine.innerHTML = '🕌 الموقع النشط الآن: موقع المسجد الحقيقي';
     locLine.style.color = '#776';
   }
-  if (!document.getElementById('testLat').value) {
-    document.getElementById('testLat').value = data.testLocationLat || '';
-  }
-  if (!document.getElementById('testLng').value) {
-    document.getElementById('testLng').value = data.testLocationLng || '';
-  }
-  if (!document.getElementById('testLabel').value) {
-    document.getElementById('testLabel').value = data.testLocationLabel || '';
-  }
+  if (!document.getElementById('testLat').value) document.getElementById('testLat').value = data.testLocationLat || '';
+  if (!document.getElementById('testLng').value) document.getElementById('testLng').value = data.testLocationLng || '';
+  if (!document.getElementById('testLabel').value) document.getElementById('testLabel').value = data.testLocationLabel || '';
 }
 
 function postAdminAction(payload) {
-  return fetch('/api/admin', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(Object.assign({ token: adminToken }, payload))
-  }).then(r => r.json());
+  return fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ token: adminToken }, payload)) })
+    .then(r => r.json());
 }
 
 function setOverride(mode) {
-  postAdminAction({ action: 'setOverride', override: mode, clearManualWindow: mode === 'auto' })
+  postAdminAction({ action: 'setOverride', override: mode })
     .then(function (data) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
         showToast('تم التحديث: ' + (mode === 'open' ? 'فتح فوري' : mode === 'closed' ? 'إغلاق فوري' : 'وضع تلقائي'), 'ok');
         refreshStatus();
-      } else {
-        showToast(data.message || 'فشل التحديث', 'err');
-      }
+      } else showToast(data.message || 'فشل التحديث', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
 
-function extendWindow() {
-  const minutes = parseInt(document.getElementById('extendMinutes').value, 10);
-  if (isNaN(minutes)) {
-    showToast('أدخل عدد دقائق صحيح', 'err');
-    return;
-  }
-  postAdminAction({ action: 'setOverride', extraMinutesDelta: minutes })
+function setExtraMinutes(field) {
+  const inputId = field === 'maghrib' ? 'maghribExtend' : 'asrExtend';
+  const minutes = parseInt(document.getElementById(inputId).value, 10);
+  if (isNaN(minutes)) { showToast('أدخل عدد دقائق صحيح', 'err'); return; }
+  const payload = { action: 'setOverride' };
+  if (field === 'maghrib') payload.maghribExtraMinutes = minutes; else payload.asrExtraMinutes = minutes;
+  postAdminAction(payload)
     .then(function (data) {
       if (handleAuthError(data)) return;
-      if (data.status === 'ok') {
-        showToast('تم تعديل مدة النافذة', 'ok');
-        document.getElementById('extendMinutes').value = '';
-        refreshStatus();
-      } else {
-        showToast(data.message || 'فشل التحديث', 'err');
-      }
+      if (data.status === 'ok') { showToast('تم حفظ تمديد جلسة ' + (field === 'maghrib' ? 'المغرب' : 'العصر'), 'ok'); refreshStatus(); }
+      else showToast(data.message || 'فشل التحديث', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
@@ -614,19 +461,12 @@ function extendWindow() {
 function setManualWindow() {
   const start = document.getElementById('manualStart').value;
   const end = document.getElementById('manualEnd').value;
-  if (!start || !end) {
-    showToast('أدخل وقتي البداية والنهاية', 'err');
-    return;
-  }
+  if (!start || !end) { showToast('أدخل وقتي البداية والنهاية', 'err'); return; }
   postAdminAction({ action: 'setOverride', manualWindowStart: start, manualWindowEnd: end })
     .then(function (data) {
       if (handleAuthError(data)) return;
-      if (data.status === 'ok') {
-        showToast('تم ضبط النافذة اليدوية', 'ok');
-        refreshStatus();
-      } else {
-        showToast(data.message || 'فشل التحديث', 'err');
-      }
+      if (data.status === 'ok') { showToast('تم ضبط النافذة اليدوية', 'ok'); refreshStatus(); }
+      else showToast(data.message || 'فشل التحديث', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
@@ -636,31 +476,78 @@ function clearManualWindow() {
     .then(function (data) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
-        showToast('تم المسح — يُحسب أذان العصر تلقائيًا الآن', 'ok');
+        showToast('تم المسح — يُحسب تلقائيًا الآن', 'ok');
         document.getElementById('manualStart').value = '';
         document.getElementById('manualEnd').value = '';
         refreshStatus();
-      } else {
-        showToast(data.message || 'فشل التحديث', 'err');
-      }
+      } else showToast(data.message || 'فشل التحديث', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
 
+function saveMaxDistance() {
+  const value = parseInt(document.getElementById('maxDistanceInput').value, 10);
+  if (isNaN(value) || value <= 0) { showToast('أدخل قيمة مسافة صحيحة', 'err'); return; }
+  postAdminAction({ action: 'setLocationSettings', maxDistanceMeters: value })
+    .then(function (data) {
+      if (handleAuthError(data)) return;
+      if (data.status === 'ok') { showToast('تم حفظ المسافة: ' + value + ' متر', 'ok'); refreshStatus(); }
+      else showToast(data.message || 'فشل الحفظ', 'err');
+    })
+    .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
+}
+
+function getCurrentLocationForTest() {
+  if (!navigator.geolocation) { showToast('متصفحك لا يدعم تحديد الموقع', 'err'); return; }
+  showToast('جاري تحديد موقعك...', '');
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      document.getElementById('testLat').value = position.coords.latitude.toFixed(6);
+      document.getElementById('testLng').value = position.coords.longitude.toFixed(6);
+      showToast('تم تحديد موقعك — اضغط "تفعيل الموقع التجريبي"', 'ok');
+    },
+    function () { showToast('تعذّر تحديد موقعك — تأكد من تفعيل GPS', 'err'); },
+    { enableHighAccuracy: true, timeout: 15000 }
+  );
+}
+
+function setTestLocation(activate) {
+  if (activate) {
+    const lat = document.getElementById('testLat').value.trim();
+    const lng = document.getElementById('testLng').value.trim();
+    const label = document.getElementById('testLabel').value.trim();
+    if (!lat || !lng) { showToast('أدخل إحداثيات الموقع التجريبي أولًا، أو استخدم "موقعي الآن"', 'err'); return; }
+    postAdminAction({ action: 'setLocationSettings', testLocationActive: true, testLocationLat: lat, testLocationLng: lng, testLocationLabel: label || 'موقع تجريبي' })
+      .then(function (data) {
+        if (handleAuthError(data)) return;
+        if (data.status === 'ok') { showToast('تم تفعيل الموقع التجريبي', 'ok'); refreshStatus(); }
+        else showToast(data.message || 'فشلت العملية', 'err');
+      })
+      .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
+  } else {
+    postAdminAction({ action: 'setLocationSettings', testLocationActive: false })
+      .then(function (data) {
+        if (handleAuthError(data)) return;
+        if (data.status === 'ok') { showToast('تم الرجوع لموقع المسجد الحقيقي', 'ok'); refreshStatus(); }
+        else showToast(data.message || 'فشلت العملية', 'err');
+      })
+      .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
+  }
+}
+
 function forceAttend() {
   const code = document.getElementById('forceCode').value.trim();
+  const session = document.getElementById('forceSession').value;
   if (!code) { showToast('أدخل الرقم الإداري', 'err'); return; }
-
-  postAdminAction({ action: 'forceAttend', adminCode: code })
+  postAdminAction({ action: 'forceAttend', adminCode: code, session: session })
     .then(function (data) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
-        showToast('تم تحضير: ' + data.name, 'ok');
+        showToast('تم تحضير: ' + data.name + ' (جلسة ' + (session === 'maghrib' ? 'المغرب' : 'العصر') + ')', 'ok');
         document.getElementById('forceCode').value = '';
         refreshStatus();
-      } else {
-        showToast(data.message || 'فشلت العملية', 'err');
-      }
+        loadTodayList();
+      } else showToast(data.message || 'فشلت العملية', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
@@ -668,188 +555,88 @@ function forceAttend() {
 function unbindDevice() {
   const deviceId = document.getElementById('unbindDeviceId').value.trim();
   if (!deviceId) { showToast('أدخل بصمة الجهاز', 'err'); return; }
-
   postAdminAction({ action: 'unbindDevice', deviceId: deviceId })
     .then(function (data) {
       if (handleAuthError(data)) return;
-      if (data.status === 'ok') {
-        showToast('تم رفع الحظر عن ' + data.cleared + ' سجل', 'ok');
-        document.getElementById('unbindDeviceId').value = '';
-      } else {
-        showToast(data.message || 'فشلت العملية', 'err');
-      }
+      if (data.status === 'ok') { showToast('تم رفع الحظر عن ' + data.cleared + ' سجل', 'ok'); document.getElementById('unbindDeviceId').value = ''; }
+      else showToast(data.message || 'فشلت العملية', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
 
 function removeToday() {
   const code = document.getElementById('removeCode').value.trim();
+  const session = document.getElementById('removeSession').value;
   if (!code) { showToast('أدخل الرقم الإداري', 'err'); return; }
-
-  postAdminAction({ action: 'removeToday', adminCode: code })
+  postAdminAction({ action: 'removeToday', adminCode: code, session: session })
     .then(function (data) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
-        showToast('تم حذف تحضير اليوم لهذا الرقم', 'ok');
+        showToast('تم حذف ' + data.deleted + ' سجل لهذا الرقم', 'ok');
         document.getElementById('removeCode').value = '';
         refreshStatus();
-      } else {
-        showToast(data.message || 'فشلت العملية', 'err');
-      }
+        loadTodayList();
+      } else showToast(data.message || 'فشلت العملية', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
-
-/* ===== إعدادات الموقع الجغرافي والمسافة ===== */
-
-function saveMaxDistance() {
-  const value = parseInt(document.getElementById('maxDistanceInput').value, 10);
-  if (isNaN(value) || value <= 0) {
-    showToast('أدخل قيمة مسافة صحيحة (بالمتر)', 'err');
-    return;
-  }
-  postAdminAction({ action: 'setLocationSettings', maxDistanceMeters: value })
-    .then(function (data) {
-      if (handleAuthError(data)) return;
-      if (data.status === 'ok') {
-        showToast('تم حفظ المسافة: ' + value + ' متر', 'ok');
-        refreshStatus();
-      } else {
-        showToast(data.message || 'فشل الحفظ', 'err');
-      }
-    })
-    .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
-}
-
-function getCurrentLocationForTest() {
-  if (!navigator.geolocation) {
-    showToast('متصفحك لا يدعم تحديد الموقع', 'err');
-    return;
-  }
-  showToast('جاري تحديد موقعك...', '');
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      document.getElementById('testLat').value = position.coords.latitude.toFixed(6);
-      document.getElementById('testLng').value = position.coords.longitude.toFixed(6);
-      showToast('تم تحديد موقعك الحالي — اضغط "تفعيل الموقع التجريبي" لاستخدامه', 'ok');
-    },
-    function () {
-      showToast('تعذّر تحديد موقعك — تأكد من تفعيل GPS', 'err');
-    },
-    { enableHighAccuracy: true, timeout: 15000 }
-  );
-}
-
-function setTestLocation(activate) {
-  const payload = { action: 'setLocationSettings', testLocationActive: activate };
-
-  if (activate) {
-    const lat = document.getElementById('testLat').value.trim();
-    const lng = document.getElementById('testLng').value.trim();
-    const label = document.getElementById('testLabel').value.trim();
-    if (!lat || !lng) {
-      showToast('أدخل إحداثيات الموقع التجريبي أولاً، أو استخدم "موقعي الآن"', 'err');
-      return;
-    }
-    payload.testLocationLat = lat;
-    payload.testLocationLng = lng;
-    payload.testLocationLabel = label || 'موقع تجريبي';
-  }
-
-  postAdminAction(payload)
-    .then(function (data) {
-      if (handleAuthError(data)) return;
-      if (data.status === 'ok') {
-        showToast(activate ? 'تم تفعيل الموقع التجريبي' : 'تم الرجوع لموقع المسجد الحقيقي', 'ok');
-        refreshStatus();
-      } else {
-        showToast(data.message || 'فشلت العملية', 'err');
-      }
-    })
-    .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
-}
-
-/* ===== إعادة الضبط الشامل ===== */
 
 function confirmResetAll() {
   const sure = confirm(
-    'هل أنت متأكد؟\n\n' +
-    'سيُعاد ضبط: وضع النافذة (تلقائي)، التمديد (صفر)، النافذة اليدوية (تُمسح)، ' +
-    'مسافة القبول (100م)، والموقع التجريبي (يُعطَّل).\n\n' +
-    'هذا لا يحذف أي سجل حضور — فقط إعدادات التحكم.'
+    'هل أنت متأكد؟\n\nسيُعاد ضبط: وضع النافذة (تلقائي)، تمديد العصر والمغرب (صفر)، النافذة اليدوية (تُمسح)، مسافة القبول (100م)، والموقع التجريبي (يُعطَّل).\n\nهذا لا يحذف أي سجل حضور — فقط إعدادات التحكم.'
   );
   if (!sure) return;
-
   postAdminAction({ action: 'resetAllSettings' })
     .then(function (data) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
         showToast('تم إعادة ضبط جميع الإعدادات للوضع الطبيعي', 'ok');
-        // مسح الحقول اليدوية في الواجهة لتعكس الإعادة فوراً
-        document.getElementById('extendMinutes').value = '';
+        document.getElementById('asrExtend').value = '';
+        document.getElementById('maghribExtend').value = '';
         document.getElementById('manualStart').value = '';
         document.getElementById('manualEnd').value = '';
         document.getElementById('testLat').value = '';
         document.getElementById('testLng').value = '';
         document.getElementById('testLabel').value = '';
         refreshStatus();
-      } else {
-        showToast(data.message || 'فشلت العملية', 'err');
-      }
+      } else showToast(data.message || 'فشلت العملية', 'err');
     })
     .catch(function () { showToast('تعذّر الاتصال بالسيرفر', 'err'); });
 }
 
-/* ===== سجل الحضور اليومي والتصدير ===== */
-
-let lastLoadedAttendanceList = [];
-
 function loadTodayList() {
   if (!adminToken) return Promise.resolve();
-
   return fetch('/api/admin?action=getTodayList&token=' + encodeURIComponent(adminToken))
     .then(r => r.json())
     .then(function (data) {
       if (handleAuthError(data)) return;
-
       const tbody = document.getElementById('attendanceBody');
-
       if (!data.list || data.list.length === 0) {
         lastLoadedAttendanceList = [];
-        tbody.innerHTML = '<tr><td colspan="6" style="padding:20px; text-align:center;">لا يوجد حضور اليوم</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="padding:20px; text-align:center; color:#999;">لا يوجد حضور اليوم</td></tr>';
         return;
       }
-
       lastLoadedAttendanceList = data.list;
-
       tbody.innerHTML = data.list.map(function (row) {
+        const sessionLabel = row.session === 'maghrib' ? 'المغرب' : 'العصر';
+        const sessionClass = row.session === 'maghrib' ? 'maghrib' : 'asr';
         return '<tr>' +
-          '<td style="padding:8px; border:1px solid #ddd;">' + row.adminCode + '</td>' +
-          '<td style="padding:8px; border:1px solid #ddd;">' + row.name + '</td>' +
-          '<td style="padding:8px; border:1px solid #ddd;">' + row.time + '</td>' +
-          '<td style="padding:8px; border:1px solid #ddd;">' + (row.distance || '—') + '</td>' +
-          '<td style="padding:8px; border:1px solid #ddd; font-size:11px;" title="' + row.deviceId + '">' + (row.deviceId || '—').substring(0, 10) + '...</td>' +
-          '<td style="padding:8px; border:1px solid #ddd;">' + (row.type || 'عادي') + '</td>' +
+          '<td>' + row.adminCode + '</td>' +
+          '<td>' + row.name + '</td>' +
+          '<td>' + row.time + '</td>' +
+          '<td>' + (row.distance || '—') + '</td>' +
+          '<td><span class="session-tag ' + sessionClass + '">' + sessionLabel + '</span></td>' +
+          '<td>' + (row.type || 'عادي') + '</td>' +
           '</tr>';
       }).join('');
-
       showToast('تم تحميل ' + data.list.length + ' سجل حضور', 'ok');
     })
-    .catch(function () {
-      showToast('تعذّر تحميل القائمة', 'err');
-    });
+    .catch(function () { showToast('تعذّر تحميل القائمة', 'err'); });
 }
 
-// التصدير من البيانات الأصلية القادمة من السيرفر، لا من الجدول المعروض على الشاشة —
-// هذا يضمن أن الملف المُصدَّر صحيح وكامل (بصمة الجهاز كاملة بدون اقتطاع) دائمًا،
-// حتى لو لم يضغط الإداري "تحديث القائمة" قبل التصدير.
 function exportToExcel() {
   function buildAndDownload(list) {
-    if (!list || list.length === 0) {
-      showToast('لا يوجد حضور اليوم لتصديره', 'err');
-      return;
-    }
-
+    if (!list || list.length === 0) { showToast('لا يوجد حضور اليوم لتصديره', 'err'); return; }
     const rows = list.map(function (row) {
       return {
         'الرقم الإداري': row.adminCode,
@@ -857,26 +644,22 @@ function exportToExcel() {
         'التاريخ': row.date,
         'الوقت': row.time,
         'المسافة (م)': row.distance || '—',
+        'الجلسة': row.session === 'maghrib' ? 'المغرب' : 'العصر',
         'بصمة الجهاز': row.deviceId || '—',
         'نوع التسجيل': row.type || 'عادي'
       };
     });
-
     const ws = XLSX.utils.json_to_sheet(rows);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'حضور اليوم');
     XLSX.writeFile(wb, 'attendance_' + new Date().toISOString().slice(0, 10) + '.xlsx');
     showToast('✅ تم تصدير ' + list.length + ' سجل بنجاح', 'ok');
   }
-
-  // لو القائمة محمّلة مسبقًا، نُصدّرها فورًا. وإلا نجلبها أولاً من السيرفر ثم نُصدّر.
   if (lastLoadedAttendanceList.length > 0) {
     buildAndDownload(lastLoadedAttendanceList);
   } else {
     showToast('جاري جلب أحدث البيانات للتصدير...', '');
-    loadTodayList().then(function () {
-      buildAndDownload(lastLoadedAttendanceList);
-    });
+    loadTodayList().then(function () { buildAndDownload(lastLoadedAttendanceList); });
   }
 }
 </script>
