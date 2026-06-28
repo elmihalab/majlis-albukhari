@@ -151,13 +151,14 @@
   </div>
 
   <div class="section">
-    <h2>التحكم اليدوي بالجلستين معًا</h2>
+    <h2>التحكم اليدوي بالجلستين</h2>
     <div class="btn-row">
-      <button class="btn btn-open" onclick="setOverride('open')">فتح فوري (الجلستين)</button>
+      <button class="btn btn-open" onclick="setOverride('open_asr')">فتح فوري (العصر)</button>
+      <button class="btn btn-open" onclick="setOverride('open_maghrib')">فتح فوري (المغرب)</button>
       <button class="btn btn-close" onclick="setOverride('closed')">إغلاق فوري (الجلستين)</button>
       <button class="btn btn-auto" onclick="setOverride('auto')">وضع تلقائي</button>
     </div>
-    <div class="override-note">"فتح فوري" يفتح كلتا الجلستين بصرف النظر عن الوقت أو كون اليوم جمعة أو خارج فترة المجلس — تجاوز يدوي مقصود للحالات الاستثنائية.</div>
+    <div class="override-note">"فتح فوري" يفتح جلسة واحدة محدَّدة فقط — لا غموض في أي جلسة يُسجَّل التحضير بها. بصرف النظر عن الوقت أو كون اليوم جمعة أو خارج فترة المجلس — تجاوز يدوي مقصود للحالات الاستثنائية. "إغلاق فوري" يُغلق الجلستين معًا.</div>
   </div>
 
   <div class="section">
@@ -374,7 +375,7 @@ function renderStatus(data) {
   const banner = document.getElementById('notMajlisDayBanner');
   if (data.isMajlisDay === false) {
     banner.style.display = 'block';
-    banner.textContent = '⚠️ ' + (data.reason || 'اليوم ليس من ضمن أيام المجلس').replace('<br>', ' ');
+    banner.textContent = '⚠️ ' + (data.reason || 'اليوم ليس من ضمن أيام المجلس');
   } else {
     banner.style.display = 'none';
   }
@@ -389,14 +390,14 @@ function renderStatus(data) {
   asrPill.className = 'pill ' + (data.asrWindowOpen ? 'open' : 'closed');
   document.getElementById('asrTimesLine').textContent = data.asrWindowStart
     ? ('النافذة: من ' + data.asrWindowStart + ' إلى ' + data.asrWindowEnd + (data.asrExtraMinutes ? ' (+' + data.asrExtraMinutes + ' د)' : ''))
-    : (data.reason || '').replace('<br>', ' ');
+    : (data.reason || '');
 
   const maghribPill = document.getElementById('maghribPill');
   maghribPill.textContent = data.maghribWindowOpen ? 'مفتوحة الآن' : 'مغلقة الآن';
   maghribPill.className = 'pill ' + (data.maghribWindowOpen ? 'open' : 'closed');
   document.getElementById('maghribTimesLine').textContent = data.maghribWindowStart
     ? ('النافذة: من ' + data.maghribWindowStart + ' إلى ' + data.maghribWindowEnd + (data.maghribExtraMinutes ? ' (+' + data.maghribExtraMinutes + ' د)' : ''))
-    : (data.reason || '').replace('<br>', ' ');
+    : (data.reason || '');
 
   document.getElementById('asrCount').textContent = data.todayCountAsr != null ? data.todayCountAsr : '—';
   document.getElementById('maghribCount').textContent = data.todayCountMaghrib != null ? data.todayCountMaghrib : '—';
@@ -436,7 +437,8 @@ function setOverride(mode) {
     .then(function (data) {
       if (handleAuthError(data)) return;
       if (data.status === 'ok') {
-        showToast('تم التحديث: ' + (mode === 'open' ? 'فتح فوري' : mode === 'closed' ? 'إغلاق فوري' : 'وضع تلقائي'), 'ok');
+        const labels = { open_asr: 'فتح فوري — جلسة العصر', open_maghrib: 'فتح فوري — جلسة المغرب', closed: 'إغلاق فوري (الجلستين)', auto: 'وضع تلقائي' };
+        showToast('تم التحديث: ' + (labels[mode] || mode), 'ok');
         refreshStatus();
       } else showToast(data.message || 'فشل التحديث', 'err');
     })
