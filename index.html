@@ -260,6 +260,23 @@
       <em>نفع الله بكم، ونلقاكم على خير في رحاب سنة النبي ﷺ</em>
     </div>
   </div>
+
+  <div class="success-box" id="existing-code-section" style="display:none;">
+    <div class="success-icon">ℹ️</div>
+    <div class="success-title">أنت مسجَّل مسبقًا بهذا الاسم والرقم</div>
+    <div class="success-msg">
+      رقمك الإداري السري هو:
+      <div class="code-row">
+        <div class="admin-badge" id="existing-code-display">—</div>
+        <button class="copy-btn" id="existing-copy-btn" onclick="copyExistingCode()" title="نسخ الرقم">
+          <span id="existing-copy-icon">📋</span>
+        </button>
+      </div>
+      <div class="copy-feedback" id="existing-copy-feedback">تم نسخ الرقم ✓</div>
+      احتفظ بهذا الرقم أو خذ لقطة شاشة الآن.<br>
+      ستحتاجه يوميًا لإثبات حضورك داخل المجلس.
+    </div>
+  </div>
 </div>
 
 <script>
@@ -269,6 +286,22 @@
   let gender = "", edu = "", ijaza = "";
 
   document.getElementById('f-phone').placeholder = '09xxxxxxxx  أو  \u200E+966xxxxxxxxx';
+
+  function showExistingCodeBox(code) {
+    document.getElementById('existing-code-display').textContent = code;
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('existing-code-section').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function copyExistingCode() {
+    const code = document.getElementById('existing-code-display').textContent;
+    const fb = document.getElementById('existing-copy-feedback');
+    const doFeedback = () => { fb.classList.add('show'); setTimeout(() => fb.classList.remove('show'), 1800); };
+    navigator.clipboard.writeText(code).then(doFeedback).catch(() => {
+      const ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); doFeedback();
+    });
+  }
 
   function toggleLookup() {
     document.getElementById('lookup-box').classList.toggle('show');
@@ -374,7 +407,7 @@
       const dupRes = await fetch('/api/lookup?' + new URLSearchParams({ phone, firstName: firstNameForCheck }));
       const dupCheck = await dupRes.json();
       if (dupCheck.found) {
-        alert('تم التسجيل مسبقًا بهذا الرقم، ورقمك الإداري هو: ' + dupCheck.code);
+        showExistingCodeBox(dupCheck.code);
         btn.disabled = false;
         document.getElementById('btn-text').style.display = 'block';
         document.getElementById('btn-spin').style.display = 'none';
