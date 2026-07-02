@@ -124,6 +124,15 @@
     .attendance-btn-disabled { background: #b8b8b0; color: #fff; pointer-events: none; cursor: not-allowed; }
     .attendance-btn-active { background: #1a3a2a; color: #fff; pointer-events: auto; cursor: pointer; }
     .attendance-btn-active:hover { background: #0f2419; }
+
+    /* ===== بطاقة موقع الجامع ===== */
+    .location-box { margin: 1.25rem 1.5rem 0; background: #f7f9f7; border: 0.5px solid #dde5dd; border-radius: 12px; padding: 1.1rem 1.1rem 1.25rem; }
+    .location-title { font-size: 14px; font-weight: 700; color: #1a3a2a; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 6px; }
+    .location-name { font-size: 12.5px; color: #5c5c52; margin-bottom: 0.85rem; }
+    .map-frame { width: 100%; border-radius: 9px; overflow: hidden; border: 0.5px solid #dde5dd; }
+    .map-frame iframe { width: 100%; height: 220px; border: 0; display: block; }
+    .directions-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 44px; margin-top: 0.85rem; background: #fff; color: #1a3a2a; border: 1px solid #1a3a2a; border-radius: 9px; font-size: 13.5px; font-weight: 700; font-family: 'Qamra', sans-serif; text-decoration: none; transition: background 0.15s; box-sizing: border-box; }
+    .directions-btn:hover { background: #f0f7f3; }
   </style>
 </head>
 <body>
@@ -152,6 +161,22 @@
         <li><strong>الرقم الإداري:</strong> بعد التسجيل، ستحصل على رقم إداري، لتوثيق حضورك اليومي داخل المجلس.</li>
         <li><strong>إثبات الحضور:</strong> يتطلب الوجود الفعلي داخل جامع عبد الله بن عباس، مع تفعيل خاصية الموقع الجغرافي (GPS) عند إثبات الحضور في مجلس السماع.</li>
       </ul>
+    </div>
+
+    <div class="location-box">
+      <div class="location-title">📍 موقع الجامع</div>
+      <div class="location-name">جامع عبد الله بن عباس — حلب، سوريا</div>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps?q=36.20094449545152,37.11142212152481&hl=ar&z=17&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="موقع جامع عبد الله بن عباس"
+        ></iframe>
+      </div>
+      <a class="directions-btn" href="https://maps.google.com/maps/search/6426%2B9H7%D8%8C%20%D8%AD%D9%84%D8%A8%D8%8C%20%D8%B3%D9%88%D8%B1%D9%8A%D8%A7/@36.20094449545152,37.11142212152481,17z?hl=ar" target="_blank" rel="noopener">
+        🧭 فتح في خرائط جوجل والحصول على الاتجاهات
+      </a>
     </div>
 
     <div class="form-body">
@@ -260,23 +285,6 @@
       <em>نفع الله بكم، ونلقاكم على خير في رحاب سنة النبي ﷺ</em>
     </div>
   </div>
-
-  <div class="success-box" id="existing-code-section" style="display:none;">
-    <div class="success-icon">ℹ️</div>
-    <div class="success-title">أنت مسجَّل مسبقًا بهذا الاسم والرقم</div>
-    <div class="success-msg">
-      رقمك الإداري السري هو:
-      <div class="code-row">
-        <div class="admin-badge" id="existing-code-display">—</div>
-        <button class="copy-btn" id="existing-copy-btn" onclick="copyExistingCode()" title="نسخ الرقم">
-          <span id="existing-copy-icon">📋</span>
-        </button>
-      </div>
-      <div class="copy-feedback" id="existing-copy-feedback">تم نسخ الرقم ✓</div>
-      احتفظ بهذا الرقم أو خذ لقطة شاشة الآن.<br>
-      ستحتاجه يوميًا لإثبات حضورك داخل المجلس.
-    </div>
-  </div>
 </div>
 
 <script>
@@ -286,22 +294,6 @@
   let gender = "", edu = "", ijaza = "";
 
   document.getElementById('f-phone').placeholder = '09xxxxxxxx  أو  \u200E+966xxxxxxxxx';
-
-  function showExistingCodeBox(code) {
-    document.getElementById('existing-code-display').textContent = code;
-    document.getElementById('form-section').style.display = 'none';
-    document.getElementById('existing-code-section').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function copyExistingCode() {
-    const code = document.getElementById('existing-code-display').textContent;
-    const fb = document.getElementById('existing-copy-feedback');
-    const doFeedback = () => { fb.classList.add('show'); setTimeout(() => fb.classList.remove('show'), 1800); };
-    navigator.clipboard.writeText(code).then(doFeedback).catch(() => {
-      const ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); doFeedback();
-    });
-  }
 
   function toggleLookup() {
     document.getElementById('lookup-box').classList.toggle('show');
@@ -407,7 +399,7 @@
       const dupRes = await fetch('/api/lookup?' + new URLSearchParams({ phone, firstName: firstNameForCheck }));
       const dupCheck = await dupRes.json();
       if (dupCheck.found) {
-        showExistingCodeBox(dupCheck.code);
+        alert('تم التسجيل مسبقًا بهذا الرقم، ورقمك الإداري هو: ' + dupCheck.code);
         btn.disabled = false;
         document.getElementById('btn-text').style.display = 'block';
         document.getElementById('btn-spin').style.display = 'none';
@@ -480,7 +472,7 @@
           return;
         }
 
-        textEl.innerHTML = data.label || '';
+        textEl.textContent = data.label || '';
 
         if (data.windowOpen) {
           linkEl.className = 'attendance-btn-active';
